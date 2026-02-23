@@ -1,1 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos | ACME S.A.S.</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <input type="checkbox" id="menu-toggle">
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div>
+                <div class="logo">
+                    <h2>ACME S.A.S.</h2>
+                    <p>Sitema de Inventario</p>
+                </div>
+                <nav class="menu">
+                    <a href="index.html">Dashboard</a>
+                    <a href="productos.html" class="active">Productos</a>
+                    <a href="clientes.html">Clientes</a>
+                    <a href="proveedores.html">Proveedores</a>
+                    <a href="categorias.html">Categorías</a>
+                    <a href="cotizaciones.html">Cotizaciones</a>
+                    <a href="ordenes.html">Órdenes de Tabajo</a>
+                    <a href="compras.html">Compras</a>
+                    <a href="reportes.html">Reportes</a>
+                </nav>
+            </div>
+            <div class="user-box">
+                <p><strong>Juan Administrador</strong></p>
+                <span>Administrador</span>
+                <button class="logout-btn">Cerrar Sesión</button>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main">
+            <label for="menu-toggle" class="menu-icon">☰</label>
+            <header class="header">
+                <h1>Productos</h1>
+                <p>Gestión de inventario de productos</p>
+            </header>
+
+            <!-- AGREGAR PRODUCTO -->
+            <a href="#modalProducto" class="btn-new">
+                + Nuevo Producto
+            </a>
+
+            <!-- BUSCADOR -->
+            <div class="search-box">
+                <input type="text" placeholder="Buscar por nombre o código...">
+            </div>
+
+            <!-- GRID PRODUCTOS -->
+            <section class="product-grid">
+                <!-- PRODUCTOS -->
+                <div class="product-card">
+                    <div class="product-header">
+                        <h3>Taladro Eléctrico</h3>
+                        <span class="badge danger">5 Unidad</span>
+                    </div>
+                    <span class="code">PROD-001</span>
+                    <div class="product-info">
+                        <p><strong>Categoría:</strong> Ferretería</p>
+                        <p><strong>Ubicación:</strong> Bodega</p>
+                        <p><strong>Precio Venta:</strong> 280.000</p>
+                        <p><strong>Stock Mínimo:</strong> 10 Unidad</p>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="#verProd1" class="btn-view">Ver</a>
+                        <a href="#editarProd1" class="btn-edit">Editar</a>
+                        <button class="btn-delete">Borrar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-header">
+                        <h3>Laptop HP Pavilion</h3>
+                        <span class="badge normal">12 Unidad</span>
+                    </div>
+                    <span class="code">PROD-002</span>
+                    <div class="product-info">
+                        <p><strong>Categoría:</strong> Electrónica</p>
+                        <p><strong>Ubicación:</strong> Vitrina</p>
+                        <p><strong>Precio Venta:</strong> 3.200.000</p>
+                        <p><strong>Stock Mínimo:</strong> 5 Unidad</p>
+                    </div>
+
+                    <div class="product-actions">
+                        <button class="btn-light">Ver</button>
+                        <button class="btn-edit">Editar</button>
+                        <button class="btn-delete">Borrar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-header">
+                        <h3>Resma Papel Carta</h3>
+                        <span class="badge danger">8 Resma</span>
+                    </div>
+                    <span class="code">PROD-003</span>
+                    <div class="product-info">
+                        <p><strong>Categoría:</strong> Oficina</p>
+                        <p><strong>Ubicación:</strong> Bodega</p>
+                        <p><strong>Precio Venta:</strong> 18.000</p>
+                        <p><strong>Stock Mínimo:</strong> 20 Resma</p>
+                    </div>
+
+                    <div class="product-actions">
+                        <button class="btn-light">Ver</button>
+                        <button class="btn-edit">Editar</button>
+                        <button class="btn-delete">Borrar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-header">
+                        <h3>Mouse Inalámbrico</h3>
+                        <span class="badge normal">35 Unidad</span>
+                    </div>
+                    <span class="code">PROD-004</span>
+                    <div class="product-info">
+                        <p><strong>Categoría:</strong> Electrónica</p>
+                        <p><strong>Ubicación:</strong> Vitrina</p>
+                        <p><strong>Precio Venta:</strong> 40.000</p>
+                        <p><strong>Stock Mínimo:</strong> 15 Unidad</p>
+                    </div>
+
+                    <div class="product-actions">
+                        <button class="btn-light">Ver</button>
+                        <button class="btn-edit">Editar</button>
+                        <button class="btn-delete">Borrar</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-header">
+                        <h3>Lámpara LED</h3>
+                        <span class="badge danger">18 Unidad</span>
+                    </div>
+                    <span class="code">PROD-005</span>
+                    <div class="product-info">
+                        <p><strong>Categoría:</strong> Hogar</p>
+                        <p><strong>Ubicación:</strong> Vitrina</p>
+                        <p><strong>Precio Venta:</strong> 15.000</p>
+                        <p><strong>Stock Mínimo:</strong> 50 Unidad</p>
+                    </div>
+
+                    <div class="product-actions">
+                        <button class="btn-light">Ver</button>
+                        <button class="btn-edit">Editar</button>
+                        <button class="btn-delete">Borrar</button>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+    <div id="modalProducto" class="modal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>Crear Nuevo Producto</h2>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <p class="modal-subtitle">Complete todos los campos requeridos</p>
+
+            <form class="modal-form">
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Código *</label>
+                        <input type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nombre *</label>
+                        <input type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Categoría *</label>
+                        <select>
+                            <option>Seleccione...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ubicación *</label>
+                        <select>
+                            <option>Bodega</option>
+                            <option>Vitrina</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Unidad *</label>
+                        <input type="text" placeholder="Ej: Unidad, Kg, Litro">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Presentación *</label>
+                        <input type="text" placeholder="Ej: Caja, Paquete">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Precio de Entrada *</label>
+                        <input type="number">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Precio de Salida *</label>
+                        <input type="number">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cantidad Inicial *</label>
+                        <input type="number">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cantidad Actual *</label>
+                        <input type="number">
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Cantidad Mínima *</label>
+                        <input type="number">
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Descripción</label>
+                        <textarea rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <a href="#" class="btn-cancel">Cancelar</a>
+                    <button type="submit" class="btn-create">Crear</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+    <div id="verProd1" class="modal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>Detalle del Producto</h2>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <p class="modal-subtitle">Información detallada del producto</p>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Código</label>
+                    <input type="text" value="PROD-001" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" value="Taladro Eléctrico" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Categoría</label>
+                    <input type="text" value="Ferretería" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Ubicación</label>
+                    <input type="text" value="Bodega" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Unidad</label>
+                    <input type="text" value="Unidad" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Presentación</label>
+                    <input type="text" value="Caja" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Precio de Entrada</label>
+                    <input type="text" value="180000" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Precio de Salida</label>
+                    <input type="text" value="280000" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Cantidad Inicial</label>
+                    <input type="text" value="20" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Cantidad Actual</label>
+                    <input type="text" value="5" readonly>
+                </div>
+
+                <div class="form-group full">
+                    <label>Cantidad Mínima</label>
+                    <input type="text" value="10" readonly>
+                </div>
+
+                <div class="form-group full">
+                    <label>Descripción</label>
+                    <textarea readonly>Taladro percutor 1/2" 850W</textarea>
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+                <a href="#" class="btn-cancel">Cerrar</a>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="editarProd1" class="modal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>Editar Producto</h2>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <p class="modal-subtitle">Complete todos los campos requeridos</p>
+
+            <form class="modal-form">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Código *</label>
+                        <input type="text" value="PROD-001">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nombre *</label>
+                        <input type="text" value="Taladro Eléctrico">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Categoría *</label>
+                        <select>
+                            <option selected>Ferretería</option>
+                            <option>Electrónica</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ubicación *</label>
+                        <select>
+                            <option selected>Bodega</option>
+                            <option>Vitrina</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Unidad *</label>
+                        <input type="text" value="Unidad">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Presentación *</label>
+                        <input type="text" value="Caja">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Precio de Entrada *</label>
+                        <input type="number" value="180000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Precio de Salida *</label>
+                        <input type="number" value="280000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cantidad Inicial *</label>
+                        <input type="number" value="20">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cantidad Actual *</label>
+                        <input type="number" value="5">
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Cantidad Mínima *</label>
+                        <input type="number" value="10">
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Descripción</label>
+                        <textarea>Taladro percutor 1/2" 850W</textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-actions">
+                    <a href="#" class="btn-cancel">Cancelar</a>
+                    <button type="submit" class="btn-save">Guardar</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</body>
+
+</html>
