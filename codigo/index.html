@@ -1,1 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard | ACME S.A.S.</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
 
+<body>
+
+<!-- Menú para celular y tablet -->
+<input type="checkbox" id="menu-toggle">
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <h2>ACME S.A.S.</h2>
+            <p>Sistema de Inventario</p>
+        </div>
+
+        <nav class="menu">
+            <a href="index.html" class="active">Dashboard</a>
+            <a href="productos.html">Productos</a>
+            <a href="clientes.html">Clientes</a>
+            <a href="proveedores.html">Proveedores</a>
+            <a href="categorias.html">Categorías</a>
+            <a href="cotizaciones.html">Cotizaciones</a>
+            <a href="ordenes.html">Órdenes de Trabajo</a>
+            <a href="compras.html">Compras</a>
+            <a href="reportes.html">Reportes</a>
+        </nav>
+
+        <div class="user-box">
+            <p><strong>Juan Administrador</strong></p>
+            <span>Administrador</span>
+            <button class="logout-btn">Cerrar Sesión</button>
+        </div>
+
+    </aside>
+
+    <!-- CONTENIDO -->
+    <main class="main">
+
+        <!-- Menú celular y tablet -->
+        <label for="menu-toggle" class="menu-icon">☰</label>
+
+        <!-- Header -->
+        <header class="header">
+            <h1>Dashboard</h1>
+            <p>Resumen general del sistema</p>
+        </header>
+
+        <!-- Cards resumen -->
+        <section class="cards">
+
+            <div class="card">
+                <h3>Total Productos</h3>
+                <span class="number">5</span>
+                <p>En inventario</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Clientes</h3>
+                <span class="number">3</span>
+                <p>Registrados</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Proveedores</h3>
+                <span class="number">2</span>
+                <p>Activos</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Categorías</h3>
+                <span class="number">4</span>
+                <p>Configuradas</p>
+            </div>
+
+        </section>
+
+        <!-- Alertas -->
+        <section class="section alert-section">
+            <h2>Alertas de Inventario</h2>
+
+            <div class="alert-box">
+                ⚠ Productos con stock bajo <br>
+                Hay 3 producto(s) por debajo del mínimo
+            </div>
+        </section>
+
+        <!-- Productos críticos -->
+        <section class="section">
+
+            <div class="section-header">
+                <h2>Productos que requieren atención</h2>
+                <p>Inventario igual o menor al mínimo establecido</p>
+            </div>
+
+            <div class="critical-products">
+
+                <div class="critical-card">
+                    <div>
+                        <h3>Taladro Eléctrico <span class="code">PROD-001</span></h3>
+                        <p>Categoría: Ferretería</p>
+                        <p>Ubicación: Bodega</p>
+                        <p>Mínimo: 20 Resmas</p>
+                    </div>
+
+                    <div class="stock-badge danger">
+                        8 Resma
+                    </div>
+                </div>
+
+                <div class="critical-card">
+                    <div>
+                        <h3>Lámpara LED <span class="code">PROD-005</span></h3>
+                        <p>Categoría: Hogar</p>
+                        <p>Ubicación: Vitrina</p>
+                        <p>Mínimo: 50 Unidad</p>
+                    </div>
+
+                    <div class="stock-badge danger">
+                        18 Unidad
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Distribución -->
+        <section class="section">
+
+            <div class="section-header">
+                <h2>Distribución por Categoría</h2>
+                <p>Cantidad de productos por categoría</p>
+            </div>
+
+            <div class="category-grid">
+
+                <div class="category-card">
+                    <h3>Electrónica</h3>
+                    <span>2</span>
+                    <p>productos</p>
+                </div>
+
+                <div class="category-card">
+                    <h3>Ferretería</h3>
+                    <span>1</span>
+                    <p>productos</p>
+                </div>
+
+                <div class="category-card">
+                    <h3>Oficina</h3>
+                    <span>1</span>
+                    <p>productos</p>
+                </div>
+
+                <div class="category-card">
+                    <h3>Hogar</h3>
+                    <span>1</span>
+                    <p>productos</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>
