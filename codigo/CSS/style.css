@@ -688,49 +688,6 @@ textarea {
   }
 }
 
-/* REPORTES */
-
-.report-tabs {
-  display: flex;
-  background: #f1f5f9;
-  border-radius: 30px;
-  padding: 4px;
-  margin-bottom: 25px;
-}
-
-.tab {
-  flex: 1;
-  text-align: center;
-  padding: 8px;
-  text-decoration: none;
-  color: #333;
-  border-radius: 30px;
-}
-
-.tab.active {
-  background: white;
-  font-weight: 600;
-}
-
-.report-card {
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 25px;
-}
-
-.subtitle {
-  color: #6b7280;
-  font-size: 14px;
-  margin-bottom: 15px;
-}
-
-.report-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-}
-
 
 /* ===========================
    CSS PROVEEDORES
@@ -797,8 +754,50 @@ textarea {
   }
 }
 
-/* ===========================
+/* ===========================*/
 
+/* REPORTES */
+
+.report-tabs {
+  display: flex;
+  background: #f1f5f9;
+  border-radius: 30px;
+  padding: 4px;
+  margin-bottom: 25px;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 8px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 30px;
+}
+
+.tab.active {
+  background: white;
+  font-weight: 600;
+}
+
+.report-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+.subtitle {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.report-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
 
 .report-form .full {
   grid-column: 1 / -1;
