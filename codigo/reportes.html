@@ -1,1 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes | ACME S.A.S.</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <input type="checkbox" id="menu-toggle">
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div>
+                <div class="logo">
+                    <h2>ACME S.A.S.</h2>
+                    <p>Sistema de Inventario</p>
+                </div>
+                <nav class="menu">
+                    <a href="index.html">Dashboard</a>
+                    <a href="productos.html">Productos</a>
+                    <a href="clientes.html">Clientes</a>
+                    <a href="proveedores.html">Proveedores</a>
+                    <a href="categorias.html">Categorías</a>
+                    <a href="cotizaciones.html">Cotizaciones</a>
+                    <a href="ordenes.html">Órdenes de Trabajo</a>
+                    <a href="compras.html">Compras</a>
+                    <a href="reportes.html" class="active">Reportes</a>
+                </nav>
+            </div>
+
+            <div class="user-box">
+                <p><strong>Juan Administrador</strong></p>
+                <span>Administrador</span>
+                <button class="logout-btn">Cerrar Sesión</button>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main">
+            <label for="menu-toggle" class="menu-icon">☰</label>
+
+            <header class="header">
+                <h1>Reportes</h1>
+                <p>Generación de reportes del sistema</p>
+            </header>
+
+            <!-- TABS -->
+            <div class="report-tabs">
+                <a href="reportes.html" class="tab active">Generar Reporte</a>
+                <a href="rerportes2.html" class="tab">Histórico</a>
+            </div>
+
+            <!-- GENERAR REPORTE -->
+            <div class="report-card">
+                <h3>Generar Nuevo Reporte</h3>
+                <p class="subtitle">Seleccione el tipo de reporte y el rango de fechas</p>
+
+                <div class="report-form">
+                    <div class="full">
+                        <label>Tipo de Reporte</label>
+                        <select>
+                            <option>Reporte de Inventario</option>
+                            <option>Reporte de Ventas</option>
+                            <option>Productos Bajo Stock</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Fecha Inicio</label>
+                        <input type="date">
+                    </div>
+
+                    <div>
+                        <label>Fecha Fin</label>
+                        <input type="date">
+                    </div>
+                </div>
+
+                <div class="report-actions">
+                    <button class="btn-primary">Generar Reporte</button>
+                    <button class="btn-light">Exportar PDF</button>
+                </div>
+            </div>
+
+            <!-- MINI REPORTES -->
+            <div class="report-grid">
+                <div class="mini-report">
+                    <h4>Inventario Actual</h4>
+                    <p>Reporte completo del estado actual del inventario</p>
+                    <button class="btn-light">Generar</button>
+                </div>
+
+                <div class="mini-report">
+                    <h4>Productos Críticos</h4>
+                    <p>Productos con stock por debajo del mínimo</p>
+                    <button class="btn-light">Generar</button>
+                </div>
+
+                <div class="mini-report">
+                    <h4>Movimientos del Mes</h4>
+                    <p>Todas las transacciones del mes actual</p>
+                    <button class="btn-light">Generar</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</body>
+
+</html>
