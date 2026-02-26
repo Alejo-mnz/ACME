@@ -731,6 +731,75 @@ textarea {
   gap: 15px;
 }
 
+
+/* ===========================
+   CSS PROVEEDORES
+=========================== */
+
+/* GRID PROVEEDORES */
+.proveed-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.proveed-card {
+  flex: 0 0 calc(33.333% - 14px);
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: 0.2s ease;
+}
+
+.proveed-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.proveed-card h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.proveed-card p {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.proveed-info {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+
+/* ===== RESPONSIVE PROVEEDORES ===== */
+@media (max-width: 768px) {
+  .modal-form {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+  }
+}
+
+/* ===========================
+
+
 .report-form .full {
   grid-column: 1 / -1;
 }
