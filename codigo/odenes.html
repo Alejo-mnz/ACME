@@ -1,1 +1,224 @@
 
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Órdenes de Trabajo</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div>
+                <h2>ACME S.A.S.</h2>
+                <p>Sistema de Inventario</p>
+                <nav class="menu">
+                <a href="index.html">Dashboard</a>
+                    <a href="productos.html">Productos</a>
+                    <a href="clientes.html">Clientes</a>
+                    <a href="proveedores.html">Proveedores</a>
+                    <a href="categorias.html">Categorías</a>
+                    <a href="cotizaciones.html">Cotizaciones</a>
+                    <a href="ordenes.html" class="active">Órdenes de Trabajo</a>
+                    <a href="compras.html">Compras</a>
+                    <a href="reportes.html">Reportes</a>
+                </nav>
+            </div>
+
+            <div class="user-box">
+                <p>Juan Administrador</p>
+                <button class="logout-btn">Cerrar Sesión</button>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main">
+
+            <div class="section">
+                <div class="section-header">
+                    <div>
+                        <h1>Órdenes de Trabajo</h1>
+                        <p class="subtitle">Gestión de órdenes de trabajo</p>
+                    </div>
+                    <a href="#modalNuevaOrden" class="btn-primary">+ Nueva Orden</a>
+                </div>
+
+                <div class="orders-grid">
+
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div>
+                                <strong>OT-2026-001</strong>
+                                <span>04/02/2026</span>
+                            </div>
+                            <span class="status in-progress">EN PROCESO</span>
+                        </div>
+
+                        <p><strong>Cliente:</strong> María González</p>
+                        <p><strong>Descripción:</strong> Instalación de equipo de cómputo</p>
+                        <p><strong>Observaciones:</strong> Coordinar fecha de instalación</p>
+
+                        <div class="order-actions">
+                            <a href="#modalVerOrden" class="btn-light">Ver</a>
+                            <a href="#modalEditarOrden" class="btn-edit">Editar</a>
+                            <button class="btn-delete">Borrar</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MODAL -->
+
+    <div id="modalNuevaOrden" class="modal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3>Nueva Orden de Trabajo</h3>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <form class="modal-form">
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Cliente *</label>
+                        <select>
+                            <option>Seleccione un cliente...</option>
+                            <option>María González</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <select>
+                            <option>Pendiente</option>
+                            <option>En Proceso</option>
+                            <option>Finalizada</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Descripción del Trabajo *</label>
+                        <textarea rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Observaciones</label>
+                        <textarea rows="2"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-actions">
+                    <a href="#" class="btn-cancel">Cancelar</a>
+                    <button class="btn-primary">Crear</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- MODAL EDITAR -->
+
+    <div id="modalEditarOrden" class="modal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3>Editar Orden de Trabajo</h3>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <form class="modal-form">
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Cliente *</label>
+                        <select>
+                            <option selected>María González</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <select>
+                            <option>Pendiente</option>
+                            <option selected>En Proceso</option>
+                            <option>Finalizada</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Descripción del Trabajo *</label>
+                        <textarea rows="3">Instalación de equipo de cómputo</textarea>
+                    </div>
+
+                    <div class="form-group full">
+                        <label>Observaciones</label>
+                        <textarea rows="2">Coordinar fecha de instalación</textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-actions">
+                    <a href="#" class="btn-cancel">Cancelar</a>
+                    <button class="btn-primary">Guardar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- MODAL VER  -->
+
+    <div id="modalVerOrden" class="modal">
+        <div class="modal-content view-mode">
+
+            <div class="modal-header">
+                <h3>Detalle de Orden de Trabajo</h3>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Cliente</label>
+                    <input type="text" value="María González" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Estado</label>
+                    <input type="text" value="En Proceso" disabled>
+                </div>
+
+                <div class="form-group full">
+                    <label>Descripción del Trabajo</label>
+                    <textarea rows="3" disabled>Instalación de equipo de cómputo</textarea>
+                </div>
+
+                <div class="form-group full">
+                    <label>Observaciones</label>
+                    <textarea rows="2" disabled>Coordinar fecha de instalación</textarea>
+                </div>
+
+            </div>
+
+            <div class="modal-actions">
+                <a href="#" class="btn-cancel">Cerrar</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
