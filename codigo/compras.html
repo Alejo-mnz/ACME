@@ -1,1 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compras - ACME S.A.S.</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">☰</label>
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div>
+                <h2>ACME S.A.S.</h2>
+                <span class="sistema">Sistema de Inventario</span>
+
+                <nav class="menu">
+                    <a href="index.html">Dashboard</a>
+                    <a href="productos.html">Productos</a>
+                    <a href="clientes.html">Clientes</a>
+                    <a href="proveedores.html">Proveedores</a>
+                    <a href="categorias.html">Categorías</a>
+                    <a href="cotizaciones.html">Cotizaciones</a>
+                    <a href="ordenes.html">Órdenes de Trabajo</a>
+                    <a href="compras.html" class="active">Compras</a>
+                    <a href="reportes.html">Reportes</a>
+                </nav>
+            </div>
+
+            <div class="usuario">
+                <p><strong>Juan Administrador</strong></p>
+                <span>Administrador</span>
+                <button class="btn-logout">Cerrar Sesión</button>
+            </div>
+        </aside>
+
+        <!-- CONTENIDO -->
+        <main class="main">
+
+            <div class="header">
+                <div>
+                    <h1>Compras</h1>
+                    <p>Registro de compras a proveedores</p>
+                </div>
+                <a href="#modalNuevaCompra" class="btn-primary">+ Nueva Compra</a>
+            </div>
+
+            <div class="card">
+                <h3>COMP-2026-001</h3>
+                <p>28/02/2026</p>
+                <p><strong>Proveedor:</strong> Distribuidora Nacional</p>
+                <p><strong>Items:</strong> 1</p>
+                <p><strong>Total:</strong> $14.875.000</p>
+                <a href="#modalDetalleCompra" class="btn-outline full">Ver Detalle</a>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MODAL NUEVA COMPRA  -->
+
+    <div id="modalNuevaCompra" class="modal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div>
+                    <h2>Nueva Compra</h2>
+                    <p class="subtitulo">Complete los datos de la compra</p>
+                </div>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <div class="modal-body">
+
+                <label>Proveedor *</label>
+                <select class="input">
+                    <option>Seleccione un proveedor...</option>
+                    <option>Distribuidora Nacional</option>
+                    <option>Proveedor Tech</option>
+                </select>
+
+                <div class="box-item">
+                    <h3>Agregar Item</h3>
+
+                    <div class="row-item">
+                        <div class="col">
+                            <label>Producto</label>
+                            <select class="input">
+                                <option>Seleccione...</option>
+                                <option>Laptop HP Pavilion</option>
+                                <option>Monitor Samsung</option>
+                            </select>
+                        </div>
+
+                        <div class="col-small">
+                            <label>Cantidad</label>
+                            <input type="number" class="input" value="1">
+                        </div>
+
+                        <button class="btn-primary btn-agregar">+ Agregar</button>
+                    </div>
+                </div>
+
+                <h3 class="titulo-tabla">Items de la Compra</h3>
+
+                <div class="tabla-contenedor">
+                    <table class="tabla">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unit.</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="3" class="text-right">Subtotal:</td>
+                                <td>$0</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right">IVA (19%):</td>
+                                <td>$0</td>
+                            </tr>
+                            <tr class="fila-final">
+                                <td colspan="3" class="text-right">Total:</td>
+                                <td>$0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <label>Observaciones</label>
+                <textarea class="input"></textarea>
+
+            </div>
+
+            <div class="modal-footer">
+                <a href="#" class="btn-outline">Cancelar</a>
+                <button class="btn-primary">Registrar Compra</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL DETALLE -->
+
+    <div id="modalDetalleCompra" class="modal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div>
+                    <h2>Detalle de Compra</h2>
+                    <p class="subtitulo">Información de la compra</p>
+                </div>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <div class="modal-body">
+
+                <label>Proveedor</label>
+                <select class="input" disabled>
+                    <option selected>Distribuidora Nacional</option>
+                </select>
+
+                <h3 class="titulo-tabla">Items de la Compra</h3>
+
+                <div class="tabla-contenedor">
+                    <table class="tabla">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unit.</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Laptop HP Pavilion</td>
+                                <td>5</td>
+                                <td>$2.500.000</td>
+                                <td>$12.500.000</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right">Subtotal:</td>
+                                <td>$12.500.000</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right">IVA (19%):</td>
+                                <td>$2.375.000</td>
+                            </tr>
+                            <tr class="fila-final">
+                                <td colspan="3" class="text-right">Total:</td>
+                                <td>$14.875.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <label>Observaciones</label>
+                <textarea class="input" disabled></textarea>
+
+            </div>
+
+            <div class="modal-footer">
+                <a href="#" class="btn-outline">Cerrar</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
