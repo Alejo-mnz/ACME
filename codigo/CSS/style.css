@@ -1252,7 +1252,6 @@ textarea {
   text-align: center;
 }
 
-
 @media (max-width: 1024px) {
   .sidebar {
     position: fixed;
@@ -1276,5 +1275,351 @@ textarea {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
+  }
+}
+
+/* ===========================
+   CSS PROVEEDORES
+=========================== */
+
+/* GRID PROVEEDORES */
+.proveed-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.proveed-card {
+  flex: 0 0 calc(33.333% - 14px);
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: 0.2s ease;
+}
+
+.proveed-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.proveed-card h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.proveed-card p {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.proveed-info {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ===== RESPONSIVE PROVEEDORES, CATEGORÍAS ===== */
+@media (max-width: 768px) {
+  .modal-form {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+  }
+}
+
+/* ===========================*/
+
+/* ===========================
+   CSS CATEGORIAS
+=========================== */
+
+/* GRID CATEGORÍAS */
+.catego-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.catego-card {
+  flex: 0 0 calc(33.333% - 14px);
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: 0.2s ease;
+}
+
+.catego-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.catego-card h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.catego-card p {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.catego-info {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ===========================*/
+
+/* CSS COTIZACIONES */
+
+.cotiz-card {
+  flex: 0 0 calc(33.333% - 14px);
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: 0.2s ease;
+}
+
+.cotiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cotiz-status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  background: #e5e7eb;
+}
+
+.cotiz-actions a,
+.cotiz-actions button {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+
+.cotiz-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.cotiz-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.cotiz-card h3 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.cotiz-card p {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.cotiz-info {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* NUEVA COTIZACIÓN*/
+
+.section-title {
+  margin: 25px 0 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* agregar item */
+
+.add-item {
+  display: flex;
+  gap: 15px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  background: #f9fafb;
+  padding: 15px;
+  border-radius: 8px;
+
+  grid-column: 1 / -1; /* Ocupa todo el ancho del grid */
+  margin-top: 10px;
+}
+
+.cotiz-form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cotiz-form-group.small {
+  max-width: 120px;
+}
+
+.cotiz-form-group label {
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: #6b7280;
+}
+
+.cotiz-form-group input,
+.cotiz-form-group select {
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+.cotiz-form-group input:focus,
+.cotiz-form-group select:focus {
+  border-color: #2563eb;
+}
+
+/* Botón agregar */
+.btn-primary {
+  height: 38px;
+  padding: 0 20px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+/* tabla */
+
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background: white;
+}
+
+.items-table th {
+  text-align: left;
+  padding: 10px;
+  background: #f3f4f6;
+  font-size: 13px;
+  color: #374151;
+}
+
+.items-table td {
+  padding: 10px;
+  border-top: 1px solid #e5e7eb;
+  font-size: 14px;
+}
+
+.items-table tr:hover {
+  background: #f9fafb;
+}
+
+/* Botón eliminar */
+
+.cotiz-btn-delete {
+  background: #ef4444;
+  border: none;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.cotiz-btn-delete:hover {
+  background: #dc2626;
+}
+
+/* totales*/
+
+.totals {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.totals-box {
+  background: #f9fafb;
+  padding: 15px 20px;
+  border-radius: 8px;
+  min-width: 250px;
+}
+
+.totals-box p {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.total-final {
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.items-section {
+  grid-column: 1 / -1; /* Ocupa todo el ancho del grid */
+  margin-top: 10px;
+}
+
+/* RESPONCIBE COTIZACIONES*/
+
+@media (max-width: 768px) {
+  .modal-form {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
   }
 }
