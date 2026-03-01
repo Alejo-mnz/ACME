@@ -603,7 +603,7 @@ textarea {
   gap: 10px;
 }
 
-/* ===== MODAL ===== */
+/* MODAL */
 
 .modal-content {
   background: #fff;
@@ -661,7 +661,7 @@ textarea {
   color: #fff;
 }
 
-/* ===== RESPONSIVE ===== */
+/* RESPONSIVE */
 
 @media (max-width: 768px) {
   .modal-form {
@@ -680,7 +680,6 @@ textarea {
     margin-top: 15px;
   }
 
-  /* Botones tamaño normal en desktop */
   .btn-cancel,
   .btn-save {
     padding: 6px 14px;
@@ -1085,31 +1084,197 @@ textarea {
 
 /* RESPONSIVE */
 
-@media (max-width: 768px) {
+/* FORM */
+.modal-body label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.box-item {
+  background: #f3f4f6;
+  padding: 18px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.row-item {
+  display: flex;
+  gap: 15px;
+  align-items: flex-end;
+  margin-top: 10px;
+}
+
+.col {
+  flex: 1;
+}
+.col-small {
+  width: 120px;
+}
+
+.btn-agregar {
+  height: 40px;
+}
+
+.titulo-tabla {
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.tabla-contenedor {
+  background: #f3f4f6;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.tabla th {
+  background: #f9fafb;
+  padding: 10px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.tabla td {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  font-size: 14px;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.fila-final td {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* CSS PARA COMPRAS */
+
+/* MAIN  */
+
+.main {
+  flex: 1;
+  padding: 40px 50px;
+}
+
+/* HEADER */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.header p {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* CARD */
+
+.card {
+  flex: 0 0 calc(33.33% - 14px);
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+}
+
+.card p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.card .btn-outline {
+  margin-top: 15px;
+}
+
+.btn-primary {
+  background: #0f172a;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  border: none;
+  font-size: 14px;
+}
+
+.btn-outline {
+  border: 1px solid #d1d5db;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #374151;
+  background: white;
+}
+
+.full {
+  display: block;
+  text-align: center;
+}
+
+
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed;
+    left: -260px;
+    top: 0;
+    height: 100%;
+    width: 250px;
+    transition: 0.3s ease;
+    z-index: 1000;
+  }
+
   .layout {
     flex-direction: column;
   }
 
-  .sidebar {
-    width: 100%;
+  .main {
+    padding: 25px;
   }
 
-  .section-header {
+  .header {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
-  }
-
-  .order-header {
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .order-actions {
-    flex-direction: column;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
   }
 }
