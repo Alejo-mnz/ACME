@@ -1,1 +1,206 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categorías| ACME S.A.S.</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <input type="checkbox" id="menu-toggle">
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div>
+                <div class="logo">
+                    <h2>ACME S.A.S.</h2>
+                    <p>Sitema de Inventario</p>
+                </div>
+                <nav class="menu">
+                    <a href="index.html">Dashboard</a>
+                    <a href="productos.html">Productos</a>
+                    <a href="clientes.html" >Clientes</a>
+                    <a href="proveedores.html">Proveedores</a>
+                    <a href="categorias.html"class="active">Categorías</a>
+                    <a href="cotizaciones.html">Cotizaciones</a>
+                    <a href="ordenes.html">Órdenes de Tabajo</a>
+                    <a href="compras.html">Compras</a>
+                    <a href="reportes.html">Reportes</a>
+                </nav>
+            </div>
+            <div class="user-box">
+                <p><strong>Juan Administrador</strong></p>
+                <span>Administrador</span>
+                <button class="logout-btn">Cerrar Sesión</button>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main">
+            <label for="menu-toggle" class="menu-icon">☰</label>
+            <header class="header">
+                <h1>Categorías</h1>
+                <p>Gestión de categorias de productos</p>
+            </header>
+
+            <!-- AGREGAR CATEGORIA -->
+            <a href="#nuevoCategoria" class="btn-new">
+                + Nueva Categoria
+            </a>
+
+            <!-- GRID Categorías -->
+            <section class="catego-grid">
+                <!-- Categorías -->
+                <div class="catego-card">
+                    <div class="catego-header">
+                        <h3>Electrónica</h3>
+                    </div>
+                    <div class="catego-info">
+                        <p><strong>Productos Electrónicos</strong>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="#editarCategoria1" class="btn-edit">Editar</a>
+                        <a href="#eliminarCategoria1" class="btn-delete">Borrar</a>
+                    </div>
+                </div>
+
+                <div class="catego-card">
+                    <div class="catego-header">
+                        <h3>Ferretería</h3>
+                    </div>
+                        <p><strong>Herramientas y materiales</strong>
+
+                    <div class="card-actions">
+                        <a href="#" class="btn-edit">Editar</a>
+                        <a href="#" class="btn-delete">Borrar</a>
+                    </div>
+                </div>
+                <div class="catego-card">
+                    <div class="catego-header">
+                        <h3>Oficina</h3>
+                    </div>
+                    <div class="catego-info">
+                        <p><strong>Suministros de oficina</strong>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="#" class="btn-edit">Editar</a>
+                        <a href="#" class="btn-delete">Borrar</a>
+                    </div>
+                </div>
+                <div class="catego-card">
+                    <div class="catego-header">
+                        <h3>Hogar</h3>
+                    </div>
+                    <div class="catego-info">
+                        <p><strong>Artículos para el hogar</strong>
+                    </div>
+
+                    <div class="card-actions">
+                        <a href="#" class="btn-edit">Editar</a>
+                        <a href="#" class="btn-delete">Borrar</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <!-- MODAL NUEVO CATEGORIA -->
+    <div id="nuevoCategoria" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Nueva Categoria</h2>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <p class="modal-subtitle">Complete la información de la categoría</p>
+
+            <form>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Nombre *</label>
+                        <input type="text">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descripción *</label>
+                        <input type="text">
+                    </div>
+
+                </div>
+                <div class="modal-actions">
+                    <a href="#" class="btn-cancel">Cancelar</a>
+                    <button type="submit" class="btn-save">Guardar</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div id="editarCategoria1" class="modal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>Editar Categoría</h2>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <p class="modal-subtitle">Complete la información de la categoria</p>
+
+            <form>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Nombre *</label>
+                        <input type="text" value="Electrónica">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descripción *</label>
+                        <input type="text" value="Productos Electrónicos">
+                    </div>
+
+                    
+                </div>
+
+                <div class="modal-actions">
+                    <a href="#" class="btn-cancel">Cancelar</a>
+                    <button type="submit" class="btn-save">Guardar</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div id="eliminarCategoria1" class="modal">
+        <div class="modal-content small">
+
+            <div class="modal-header">
+                <h2>Eliminar Categoría</h2>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <p>¿Está seguro que desea eliminar esta categoría?</p>
+
+            <div class="modal-actions">
+                <a href="#" class="btn-cancel">Cancelar</a>
+                <button class="btn-danger">Eliminar</button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
+
