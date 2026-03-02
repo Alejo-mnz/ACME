@@ -1,1 +1,476 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizaciones | ACME S.A.S.</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <input type="checkbox" id="menu-toggle">
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div>
+                <div class="logo">
+                    <h2>ACME S.A.S.</h2>
+                    <p>Sitema de Inventario</p>
+                </div>
+                <nav class="menu">
+                    <a href="index.html">Dashboard</a>
+                    <a href="productos.html">Productos</a>
+                    <a href="clientes.html">Clientes</a>
+                    <a href="proveedores.html">Proveedores</a>
+                    <a href="categorias.html">Categorías</a>
+                    <a href="cotizaciones.html"class="active">Cotizaciones</a>
+                    <a href="ordenes.html">Órdenes de Tabajo</a>
+                    <a href="compras.html">Compras</a>
+                    <a href="reportes.html">Reportes</a>
+                </nav>
+            </div>
+            <div class="user-box">
+                <p><strong>Juan Administrador</strong></p>
+                <span>Administrador</span>
+                <button class="logout-btn">Cerrar Sesión</button>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main">
+            <label for="menu-toggle" class="menu-icon">☰</label>
+            <header class="header">
+                <h1>Cotizaciones</h1>
+                <p>Gestión de cotizaciones</p>
+            </header>
+
+            <!-- AGREGAR COTIZACIONES -->
+            <a href="#modalCotizacion" class="btn-new">
+                + Nueva Cotización
+            </a>
+
+                <!-- COTIZACIONES -->
+                <div class="cotiz-card">
+                    <div class="cotiz-header">
+                        <div class="cotiz-title">
+                            <h3>COT-2026-001</h3>
+                            <div class="cotiz-info">
+                                <p>31/01/2026</p>
+                            </div>
+                        </div>
+                        <span class="cotiz-status">PENDIENTE</span>                       
+                    </div>
+
+                    <div class="cotiz-info">
+                        <p><strong>Cliente:</strong> Construcciones XYZ Ltda.</p>
+                        <p><strong>Ítems:</strong> 2</p>
+                        <p><strong>Total:</strong> $1,451.800</p>
+                    </div>
+
+                    <div class="cotiz-actions">
+                        <a href="#verCotizacion1" class="btn-view">Ver</a>
+                        <a href="#imprimirCotizacion1" class="btn-view">Imprimir</a>
+                        <a href="#editarCotizacion1" class="btn-edit">Editar</a>
+                        <a href="#eliminarCotizacion1" class="btn-delete">Borrar</a>
+                    </div>
+                </div>
+        </main>
+    </div>
+    <div id="modalCotizacion" class="modal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>Crear Nueva Cotización</h2>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <p class="modal-subtitle">Complete todos los campos requeridos</p>
+
+            <form class="modal-form">
+
+                <div class="form-grid">
+                    <div class="cotiz-form-group">
+                        <label>Cliente *</label>
+                        <select>
+                            <option disabled selected>Seleccione...</option>
+                            <option>Construcciones XYZ Ltda</option>
+                            <option>María Gonzalez</option>
+                        </select>
+                    </div>
+
+                    <div class="cotiz-form-group">
+                        <label>Estado *</label>
+                        <select>
+                            <option disabled selected>Seleccione...</option>
+                            <option>Pendiente</option>
+                            <option>Agotado</option>
+                            <option>Rechazado</option>
+                        </select>
+                    </div>
+
+                    
+
+                    <div class="add-item">
+                        <div class="cotiz-form-group">
+                            <h3 class="section-title">Agregar Ítem:</h3>
+                            <label>Producto</label>
+                            <select>
+                                <option disabled selected>Seleccione...</option>
+                                <option>Taladro Eléctrico - $280.000</option>
+                                <option>Laptop HP Pavilion - $3.200.000</option>
+                                <option>Resma Papel Carta - $18.000</option>
+                                <option>Mouse Inalámbrico - $40.000</option>
+                                <option>Lámpara LED - $15.000</option>
+                            </select>
+                        </div>
+
+                        <div class="cotiz-form-group small">
+                            <label>Cantidad</label>
+                            <input type="number" value="1" min="1">
+                        </div>
+
+                        <div class="cotiz-form-group small">
+                            <label>Desc. %</label>
+                            <input type="number" value="0" min="0">
+                        </div>
+
+                        <div class="cotiz-form-group button-group">
+                            <button type="button" class="btn-primary">
+                                + Agregar
+                            </button>
+                        </div>
+                    </div>                
+                </div>
+
+
+                <div class="items-section">
+                    <h3 class="section-title">Ítems de la Cotización:</h3>
+
+                    <table class="items-table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cant.</th>
+                                <th>P. Unit.</th>
+                                <th>Desc. %</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Laptop HP Pavilion</td>
+                                <td>1</td>
+                                <td>$3.200.000</td>
+                                <td>0%</td>
+                                <td>$3.200.000</td>
+                                <td><button class="cotiz-btn-delete">X</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="totals">
+                        <div class="totals-box">
+                            <p>Subtotal: <span>$3.200.000</span></p>
+                            <p>IVA (19%): <span>$53.200</span></p>
+                            <p class="total-final">Total: <span>$3.253.000</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group full">
+                        <label>Observaciones: </label>
+                        <textarea rows="3"></textarea>
+                    </div>
+                <div class="modal-actions">
+                    <a href="#" class="btn-cancel">Cancelar</a>
+                    <button type="submit" class="btn-create">Crear</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+    <div id="verCotizacion1" class="modal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>Ver Cotización</h2>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <p class="modal-subtitle">Información de la Cotización</p>
+
+            <form class="modal-form">
+
+                <div class="form-grid">
+                    <div class="cotiz-form-group">
+                        <label>Cliente *</label>
+                        <input type="text" value="Construcciones XYZ Ltda" readonly>
+                    </div>
+
+                    <div class="cotiz-form-group">
+                        <label>Estado *</label>
+                        <input type="text" value="Pendiente" readonly>
+                    </div>
+
+                </div>
+
+
+                <div class="items-section">
+                    <h3 class="section-title">Ítems de la Cotización:</h3>
+
+                    <table class="items-table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cant.</th>
+                                <th>P. Unit.</th>
+                                <th>Desc. %</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Laptop HP Pavilion</td>
+                                <td>1</td>
+                                <td>$3.200.000</td>
+                                <td>0%</td>
+                                <td>$3.200.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="totals">
+                        <div class="totals-box">
+                            <p>Subtotal: <span>$3.200.000</span></p>
+                            <p>IVA (19%): <span>$53.200</span></p>
+                            <p class="total-final">Total: <span>$3.253.000</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group full">
+                        <label>Observaciones: </label>
+                        <input type="text" value="PC Gamer" readonly>
+                        
+                    </div>
+                <div class="modal-actions">
+                    <a href="#" class="btn-cancel">Cerrar</a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+
+    <div id="imprimirCotizacion1" class="modal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>Imprimir Cotización</h2>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <p class="modal-subtitle">Información de la Cotización</p>
+
+            <form class="modal-form">
+
+                <div class="form-grid">
+                    <div class="cotiz-form-group">
+                        <label>Cliente *</label>
+                        <input type="text" value="Construcciones XYZ Ltda" readonly>
+                    </div>
+
+                    <div class="cotiz-form-group">
+                        <label>Estado *</label>
+                        <input type="text" value="Pendiente" readonly>
+                    </div>
+
+                </div>
+
+
+                <div class="items-section">
+                    <h3 class="section-title">Ítems de la Cotización:</h3>
+
+                    <table class="items-table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cant.</th>
+                                <th>P. Unit.</th>
+                                <th>Desc. %</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Laptop HP Pavilion</td>
+                                <td>1</td>
+                                <td>$3.200.000</td>
+                                <td>0%</td>
+                                <td>$3.200.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="totals">
+                        <div class="totals-box">
+                            <p>Subtotal: <span>$3.200.000</span></p>
+                            <p>IVA (19%): <span>$53.200</span></p>
+                            <p class="total-final">Total: <span>$3.253.000</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group full">
+                        <label>Observaciones: </label>
+                        <input type="text" value="PC Gamer" readonly>
+                    </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-create">Imprimir</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    <div id="editarCotizacion1" class="modal">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>Editar Cotización</h2>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <p class="modal-subtitle">Complete los datos de la Cotización</p>
+
+            <form class="modal-form">
+
+                <div class="form-grid">
+                    <div class="cotiz-form-group">
+                        <label>Cliente *</label>
+                        <select>
+                            <option selected>Construcciones XYZ Ltda</option>
+                            <option>María Gonzalez</option>
+                        </select>
+                    </div>
+
+                    <div class="cotiz-form-group">
+                        <label>Estado *</label>
+                        <select>
+                            <option selected>Pendiente</option>
+                            <option>Agotado</option>
+                            <option>Rechazado</option>
+
+                        </select>
+                    </div>
+
+                    
+
+                    <div class="add-item">
+                        <div class="cotiz-form-group">
+                            <h3 class="section-title">Agregar Ítem:</h3>
+                            <label>Producto</label>
+                            <select>
+                                <option disabled selected>Laptop HP Pavilion - $3.200.000</option>
+                                <option>Taladro Eléctrico - $280.000</option>
+                                <option>Resma Papel Carta - $18.000</option>
+                                <option>Mouse Inalámbrico - $40.000</option>
+                                <option>Lámpara LED - $15.000</option>
+                            </select>
+                        </div>
+
+                        <div class="cotiz-form-group small">
+                            <label>Cantidad</label>
+                            <input type="number" value="1">
+                        </div>
+
+                        <div class="cotiz-form-group small">
+                            <label>Desc. %</label>
+                            <input type="number" value="0">
+                        </div>
+
+                        <div class="cotiz-form-group button-group">
+                            <button type="button" class="btn-primary">
+                                + Agregar
+                            </button>
+                        </div>
+                    </div>                
+                </div>
+
+
+                <div class="items-section">
+                    <h3 class="section-title">Ítems de la Cotización:</h3>
+
+                    <table class="items-table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cant.</th>
+                                <th>P. Unit.</th>
+                                <th>Desc. %</th>
+                                <th>Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Laptop HP Pavilion</td>
+                                <td>1</td>
+                                <td>$3.200.000</td>
+                                <td>0%</td>
+                                <td>$3.200.000</td>
+                                <td><button class="cotiz-btn-delete">X</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="totals">
+                        <div class="totals-box">
+                            <p>Subtotal: <span>$3.200.000</span></p>
+                            <p>IVA (19%): <span>$53.200</span></p>
+                            <p class="total-final">Total: <span>$3.253.000</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group full">
+                        <label>Observaciones: </label>
+                        <input type="text" value="PC Gamer">
+                    </div>
+                <div class="modal-actions">
+                    <a href="#" class="btn-cancel">Cancelar</a>
+                    <button type="submit" class="btn-create">Crear</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <div id="eliminarCotizacion1" class="modal">
+        <div class="modal-content small">
+
+            <div class="modal-header">
+                <h2>Eliminar Cotización</h2>
+                <a href="#" class="close">&times;</a>
+            </div>
+
+            <p>¿Está seguro que desea eliminar esta cotización?</p>
+
+            <div class="modal-actions">
+                <a href="#" class="btn-cancel">Cancelar</a>
+                <button class="btn-danger">Eliminar</button>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
+
