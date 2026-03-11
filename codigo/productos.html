@@ -1,25 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="inventarioApp">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos | ACME S.A.S.</title>
+
+    <title>Productos | ACME S.A.S.</title>
+
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/angular-local-storage.min.js"></script>
+
 </head>
 
-<body>
+<body ng-controller="productosCtrl">
+
     <input type="checkbox" id="menu-toggle">
 
     <div class="layout">
 
         <!-- SIDEBAR -->
         <aside class="sidebar">
+
             <div>
+
                 <div class="logo">
                     <h2>ACME S.A.S.</h2>
-                    <p>Sitema de Inventario</p>
+                    <p>Sistema de Inventario</p>
                 </div>
+
                 <nav class="menu">
                     <a href="index.html">Dashboard</a>
                     <a href="productos.html" class="active">Productos</a>
@@ -27,143 +37,99 @@
                     <a href="proveedores.html">Proveedores</a>
                     <a href="categorias.html">Categorías</a>
                     <a href="cotizaciones.html">Cotizaciones</a>
-                    <a href="ordenes.html">Órdenes de Tabajo</a>
+                    <a href="ordenes.html">Órdenes de Trabajo</a>
                     <a href="compras.html">Compras</a>
                     <a href="reportes.html">Reportes</a>
                 </nav>
+
             </div>
+
             <div class="user-box">
                 <p><strong>Juan Administrador</strong></p>
                 <span>Administrador</span>
                 <button class="logout-btn">Cerrar Sesión</button>
             </div>
+
         </aside>
 
         <!-- MAIN -->
         <main class="main">
+
             <label for="menu-toggle" class="menu-icon">☰</label>
+
             <header class="header">
                 <h1>Productos</h1>
                 <p>Gestión de inventario de productos</p>
             </header>
 
-            <!-- AGREGAR PRODUCTO -->
             <a href="#modalProducto" class="btn-new">
                 + Nuevo Producto
             </a>
 
-            <!-- BUSCADOR -->
             <div class="search-box">
-                <input type="text" placeholder="Buscar por nombre o código...">
+                <input type="text" placeholder="Buscar por nombre o código..." ng-model="searchText">
             </div>
 
-            <!-- GRID PRODUCTOS -->
             <section class="product-grid">
-                <!-- PRODUCTOS -->
-                <div class="product-card">
+
+                <div class="product-card" ng-repeat="p in productos | filter:searchText track by p.codigo">
+
                     <div class="product-header">
-                        <h3>Taladro Eléctrico</h3>
-                        <span class="badge danger">5 Unidad</span>
+
+                        <h3>{{p.nombre}}</h3>
+
+                        <span class="badge" ng-class="p.cantidadActual <= p.cantidadMinima ? 'danger':'normal'">
+
+                            {{p.cantidadActual}} {{p.unidad}}
+
+                        </span>
+
                     </div>
-                    <span class="code">PROD-001</span>
+
+                    <span class="code">
+                        {{p.codigo}}
+                    </span>
+
                     <div class="product-info">
-                        <p><strong>Categoría:</strong> Ferretería</p>
-                        <p><strong>Ubicación:</strong> Bodega</p>
-                        <p><strong>Precio Venta:</strong> 280.000</p>
-                        <p><strong>Stock Mínimo:</strong> 10 Unidad</p>
+
+                        <p><strong>Categoría:</strong> {{p.categoria}}</p>
+
+                        <p><strong>Ubicación:</strong> {{p.ubicacion}}</p>
+
+                        <p><strong>Precio Venta:</strong> {{p.precioSalida | number}}</p>
+
+                        <p><strong>Stock Mínimo:</strong> {{p.cantidadMinima}} {{p.unidad}}</p>
+
                     </div>
 
                     <div class="card-actions">
-                        <a href="#verProd1" class="btn-view">Ver</a>
-                        <a href="#editarProd1" class="btn-edit">Editar</a>
-                        <button class="btn-delete">Borrar</button>
-                    </div>
-                </div>
 
-                <div class="product-card">
-                    <div class="product-header">
-                        <h3>Laptop HP Pavilion</h3>
-                        <span class="badge normal">12 Unidad</span>
-                    </div>
-                    <span class="code">PROD-002</span>
-                    <div class="product-info">
-                        <p><strong>Categoría:</strong> Electrónica</p>
-                        <p><strong>Ubicación:</strong> Vitrina</p>
-                        <p><strong>Precio Venta:</strong> 3.200.000</p>
-                        <p><strong>Stock Mínimo:</strong> 5 Unidad</p>
+                        <a href="#verProd1" class="btn-view" ng-click="verProducto(p)">
+                            Ver
+                        </a>
+
+                        <a href="#editarProd1" class="btn-edit" ng-click="editarProducto(p)">
+                            Editar
+                        </a>
+
+                        <button class="btn-delete" ng-click="eliminarProducto(p.codigo)">
+                            Borrar
+                        </button>
+
                     </div>
 
-                    <div class="product-actions">
-                        <button class="btn-light">Ver</button>
-                        <button class="btn-edit">Editar</button>
-                        <button class="btn-delete">Borrar</button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-header">
-                        <h3>Resma Papel Carta</h3>
-                        <span class="badge danger">8 Resma</span>
-                    </div>
-                    <span class="code">PROD-003</span>
-                    <div class="product-info">
-                        <p><strong>Categoría:</strong> Oficina</p>
-                        <p><strong>Ubicación:</strong> Bodega</p>
-                        <p><strong>Precio Venta:</strong> 18.000</p>
-                        <p><strong>Stock Mínimo:</strong> 20 Resma</p>
-                    </div>
-
-                    <div class="product-actions">
-                        <button class="btn-light">Ver</button>
-                        <button class="btn-edit">Editar</button>
-                        <button class="btn-delete">Borrar</button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-header">
-                        <h3>Mouse Inalámbrico</h3>
-                        <span class="badge normal">35 Unidad</span>
-                    </div>
-                    <span class="code">PROD-004</span>
-                    <div class="product-info">
-                        <p><strong>Categoría:</strong> Electrónica</p>
-                        <p><strong>Ubicación:</strong> Vitrina</p>
-                        <p><strong>Precio Venta:</strong> 40.000</p>
-                        <p><strong>Stock Mínimo:</strong> 15 Unidad</p>
-                    </div>
-
-                    <div class="product-actions">
-                        <button class="btn-light">Ver</button>
-                        <button class="btn-edit">Editar</button>
-                        <button class="btn-delete">Borrar</button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-header">
-                        <h3>Lámpara LED</h3>
-                        <span class="badge danger">18 Unidad</span>
-                    </div>
-                    <span class="code">PROD-005</span>
-                    <div class="product-info">
-                        <p><strong>Categoría:</strong> Hogar</p>
-                        <p><strong>Ubicación:</strong> Vitrina</p>
-                        <p><strong>Precio Venta:</strong> 15.000</p>
-                        <p><strong>Stock Mínimo:</strong> 50 Unidad</p>
-                    </div>
-
-                    <div class="product-actions">
-                        <button class="btn-light">Ver</button>
-                        <button class="btn-edit">Editar</button>
-                        <button class="btn-delete">Borrar</button>
-                    </div>
                 </div>
 
             </section>
+
         </main>
+
     </div>
+
+    <!-- MODAL CREAR -->
+
     <div id="modalProducto" class="modal">
+
         <div class="modal-content">
 
             <div class="modal-header">
@@ -173,73 +139,73 @@
 
             <p class="modal-subtitle">Complete todos los campos requeridos</p>
 
-            <form class="modal-form">
+            <form class="modal-form" ng-submit="agregarProducto()">
 
                 <div class="form-grid">
+
                     <div class="form-group">
                         <label>Código *</label>
-                        <input type="text">
+                        <input type="text" ng-model="nuevo.codigo">
                     </div>
 
                     <div class="form-group">
                         <label>Nombre *</label>
-                        <input type="text">
+                        <input type="text" ng-model="nuevo.nombre">
                     </div>
 
                     <div class="form-group">
                         <label>Categoría *</label>
-                        <select>
-                            <option>Seleccione...</option>
+                        <select ng-model="nuevo.categoria">
+                            <option value="">Seleccione</option>
+                            <option ng-repeat="c in categorias">{{c}}</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label>Ubicación *</label>
-                        <select>
-                            <option>Bodega</option>
-                            <option>Vitrina</option>
-                        </select>
-                    </div>
+                    <select ng-model="nuevo.ubicacion">
+                        <option value="">Seleccione</option>
+                        <option ng-repeat="u in ubicaciones">{{u}}</option>
+                    </select>
 
                     <div class="form-group">
                         <label>Unidad *</label>
-                        <input type="text" placeholder="Ej: Unidad, Kg, Litro">
+                        <input type="text" ng-model="nuevo.unidad">
                     </div>
 
                     <div class="form-group">
                         <label>Presentación *</label>
-                        <input type="text" placeholder="Ej: Caja, Paquete">
+                        <input type="text" ng-model="nuevo.presentacion">
                     </div>
 
                     <div class="form-group">
-                        <label>Precio de Entrada *</label>
-                        <input type="number">
+                        <label>Precio Entrada *</label>
+                        <input type="number" ng-model="nuevo.precioEntrada">
                     </div>
 
                     <div class="form-group">
-                        <label>Precio de Salida *</label>
-                        <input type="number">
+                        <label>Precio Salida *</label>
+                        <input type="number" ng-model="nuevo.precioSalida">
                     </div>
 
                     <div class="form-group">
                         <label>Cantidad Inicial *</label>
-                        <input type="number">
+                        <input type="number" ng-model="nuevo.cantidadInicial">
                     </div>
 
                     <div class="form-group">
                         <label>Cantidad Actual *</label>
-                        <input type="number">
+                        <input type="number" ng-model="nuevo.cantidadActual">
                     </div>
 
                     <div class="form-group full">
                         <label>Cantidad Mínima *</label>
-                        <input type="number">
+                        <input type="number" ng-model="nuevo.cantidadMinima">
                     </div>
 
                     <div class="form-group full">
                         <label>Descripción</label>
-                        <textarea rows="3"></textarea>
+                        <textarea rows="3" ng-model="nuevo.descripcion"></textarea>
                     </div>
+
                 </div>
 
                 <div class="modal-actions">
@@ -250,8 +216,13 @@
             </form>
 
         </div>
+
     </div>
+
+    <!-- MODAL VER -->
+
     <div id="verProd1" class="modal">
+
         <div class="modal-content">
 
             <div class="modal-header">
@@ -259,68 +230,36 @@
                 <a href="#" class="close">&times;</a>
             </div>
 
-            <p class="modal-subtitle">Información detallada del producto</p>
-
             <div class="form-grid">
 
                 <div class="form-group">
                     <label>Código</label>
-                    <input type="text" value="PROD-001" readonly>
+                    <input type="text" ng-value="productoSeleccionado.codigo" readonly>
                 </div>
 
                 <div class="form-group">
                     <label>Nombre</label>
-                    <input type="text" value="Taladro Eléctrico" readonly>
+                    <input type="text" ng-value="productoSeleccionado.nombre" readonly>
                 </div>
 
                 <div class="form-group">
                     <label>Categoría</label>
-                    <input type="text" value="Ferretería" readonly>
+                    <input type="text" ng-value="productoSeleccionado.categoria" readonly>
                 </div>
 
                 <div class="form-group">
                     <label>Ubicación</label>
-                    <input type="text" value="Bodega" readonly>
+                    <input type="text" ng-value="productoSeleccionado.ubicacion" readonly>
                 </div>
 
                 <div class="form-group">
-                    <label>Unidad</label>
-                    <input type="text" value="Unidad" readonly>
+                    <label>Precio</label>
+                    <input type="text" ng-value="productoSeleccionado.precioSalida" readonly>
                 </div>
 
                 <div class="form-group">
-                    <label>Presentación</label>
-                    <input type="text" value="Caja" readonly>
-                </div>
-
-                <div class="form-group">
-                    <label>Precio de Entrada</label>
-                    <input type="text" value="180000" readonly>
-                </div>
-
-                <div class="form-group">
-                    <label>Precio de Salida</label>
-                    <input type="text" value="280000" readonly>
-                </div>
-
-                <div class="form-group">
-                    <label>Cantidad Inicial</label>
-                    <input type="text" value="20" readonly>
-                </div>
-
-                <div class="form-group">
-                    <label>Cantidad Actual</label>
-                    <input type="text" value="5" readonly>
-                </div>
-
-                <div class="form-group full">
-                    <label>Cantidad Mínima</label>
-                    <input type="text" value="10" readonly>
-                </div>
-
-                <div class="form-group full">
-                    <label>Descripción</label>
-                    <textarea readonly>Taladro percutor 1/2" 850W</textarea>
+                    <label>Stock</label>
+                    <input type="text" ng-value="productoSeleccionado.cantidadActual" readonly>
                 </div>
 
             </div>
@@ -330,9 +269,13 @@
             </div>
 
         </div>
+
     </div>
 
+    <!-- MODAL EDITAR -->
+
     <div id="editarProd1" class="modal">
+
         <div class="modal-content">
 
             <div class="modal-header">
@@ -340,76 +283,42 @@
                 <a href="#" class="close">&times;</a>
             </div>
 
-            <p class="modal-subtitle">Complete todos los campos requeridos</p>
-
-            <form class="modal-form">
+            <form class="modal-form" ng-submit="guardarEdicion()">
 
                 <div class="form-grid">
 
                     <div class="form-group">
-                        <label>Código *</label>
-                        <input type="text" value="PROD-001">
+                        <label>Código</label>
+                        <input type="text" ng-model="productoEdit.codigo" readonly>
                     </div>
 
                     <div class="form-group">
-                        <label>Nombre *</label>
-                        <input type="text" value="Taladro Eléctrico">
+                        <label>Nombre</label>
+                        <input type="text" ng-model="productoEdit.nombre">
                     </div>
 
                     <div class="form-group">
                         <label>Categoría *</label>
-                        <select>
-                            <option selected>Ferretería</option>
-                            <option>Electrónica</option>
+                        <select ng-model="productoEdit.categoria">
+                            <option ng-repeat="c in categorias">{{c}}</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label>Ubicación *</label>
-                        <select>
-                            <option selected>Bodega</option>
-                            <option>Vitrina</option>
+                        <select ng-model="productoEdit.ubicacion">
+                            <option ng-repeat="u in ubicaciones">{{u}}</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label>Unidad *</label>
-                        <input type="text" value="Unidad">
+                        <label>Precio</label>
+                        <input type="number" ng-model="productoEdit.precioSalida">
                     </div>
 
                     <div class="form-group">
-                        <label>Presentación *</label>
-                        <input type="text" value="Caja">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Precio de Entrada *</label>
-                        <input type="number" value="180000">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Precio de Salida *</label>
-                        <input type="number" value="280000">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Cantidad Inicial *</label>
-                        <input type="number" value="20">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Cantidad Actual *</label>
-                        <input type="number" value="5">
-                    </div>
-
-                    <div class="form-group full">
-                        <label>Cantidad Mínima *</label>
-                        <input type="number" value="10">
-                    </div>
-
-                    <div class="form-group full">
-                        <label>Descripción</label>
-                        <textarea>Taladro percutor 1/2" 850W</textarea>
+                        <label>Cantidad</label>
+                        <input type="number" ng-model="productoEdit.cantidadActual">
                     </div>
 
                 </div>
@@ -422,7 +331,11 @@
             </form>
 
         </div>
+
     </div>
+
+    <script src="js/productos.js"></script>
+
 </body>
 
 </html>
