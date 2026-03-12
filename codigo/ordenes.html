@@ -1,25 +1,36 @@
-
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" ng-app="inventarioApp">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Órdenes de Trabajo</title>
+
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
 </head>
 
-<body>
+<body ng-controller="ordenesCtrl">
+
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">☰</label>
 
     <div class="layout">
 
         <!-- SIDEBAR -->
         <aside class="sidebar">
+
             <div>
+
                 <h2>ACME S.A.S.</h2>
                 <p>Sistema de Inventario</p>
+
                 <nav class="menu">
-                <a href="index.html">Dashboard</a>
+                    <a href="index.html">Dashboard</a>
                     <a href="productos.html">Productos</a>
                     <a href="clientes.html">Clientes</a>
                     <a href="proveedores.html">Proveedores</a>
@@ -29,57 +40,105 @@
                     <a href="compras.html">Compras</a>
                     <a href="reportes.html">Reportes</a>
                 </nav>
+
             </div>
 
             <div class="user-box">
                 <p>Juan Administrador</p>
                 <button class="logout-btn">Cerrar Sesión</button>
             </div>
+
         </aside>
 
         <!-- MAIN -->
+
         <main class="main">
 
             <div class="section">
+
                 <div class="section-header">
+
                     <div>
                         <h1>Órdenes de Trabajo</h1>
                         <p class="subtitle">Gestión de órdenes de trabajo</p>
                     </div>
-                    <a href="#modalNuevaOrden" class="btn-primary">+ Nueva Orden</a>
+
                 </div>
+
+                <div>
+                    <a href="#modalNuevaOrden" class="btn-new">
+                        + Nueva Orden
+                    </a>
+                </div>
+
+                <!-- GRID ORDENES -->
 
                 <div class="orders-grid">
 
-                    <div class="order-card">
+                    <div class="order-card" ng-repeat="o in ordenes track by o.codigo">
+
                         <div class="order-header">
+
                             <div>
-                                <strong>OT-2026-001</strong>
-                                <span>04/02/2026</span>
+                                <strong>{{o.codigo}}</strong>
+                                <span>{{o.fecha}}</span>
                             </div>
-                            <span class="status in-progress">EN PROCESO</span>
+
+                            <span class="status" ng-class="{
+'pending':o.estado=='Pendiente',
+'in-progress':o.estado=='En Proceso',
+'completed':o.estado=='Finalizada'
+}">
+                                {{o.estado | uppercase}}
+                            </span>
+
                         </div>
 
-                        <p><strong>Cliente:</strong> María González</p>
-                        <p><strong>Descripción:</strong> Instalación de equipo de cómputo</p>
-                        <p><strong>Observaciones:</strong> Coordinar fecha de instalación</p>
+                        <p>
+                            <strong>Cliente:</strong>
+                            {{o.cliente}}
+                        </p>
+
+                        <p>
+                            <strong>Descripción:</strong>
+                            {{o.descripcion}}
+                        </p>
+
+                        <p>
+                            <strong>Observaciones:</strong>
+                            {{o.observaciones}}
+                        </p>
 
                         <div class="order-actions">
-                            <a href="#modalVerOrden" class="btn-light">Ver</a>
-                            <a href="#modalEditarOrden" class="btn-edit">Editar</a>
-                            <button class="btn-delete">Borrar</button>
+
+                            <a href="#modalVerOrden" class="btn-light" ng-click="verOrden(o)">
+                                Ver
+                            </a>
+
+                            <a href="#modalEditarOrden" class="btn-edit" ng-click="editarOrden(o)">
+                                Editar
+                            </a>
+
+                            <button class="btn-delete" ng-click="eliminarOrden(o.codigo)">
+                                Borrar
+                            </button>
+
                         </div>
+
                     </div>
 
                 </div>
+
             </div>
 
         </main>
+
     </div>
 
-    <!-- MODAL -->
+    <!-- MODAL NUEVA ORDEN -->
 
     <div id="modalNuevaOrden" class="modal">
+
         <div class="modal-content">
 
             <div class="modal-header">
@@ -87,50 +146,84 @@
                 <a href="#" class="close">&times;</a>
             </div>
 
-            <form class="modal-form">
+            <form class="modal-form" ng-submit="crearOrden()">
+
                 <div class="form-grid">
 
                     <div class="form-group">
+
                         <label>Cliente *</label>
-                        <select>
-                            <option>Seleccione un cliente...</option>
-                            <option>María González</option>
+
+                        <select ng-model="nuevaOrden.cliente">
+
+                            <option value="">
+                                Seleccione un cliente...
+                            </option>
+
+                            <option ng-repeat="c in clientes">
+                                {{c.nombre}}
+                            </option>
+
                         </select>
+
                     </div>
 
                     <div class="form-group">
+
                         <label>Estado</label>
-                        <select>
-                            <option>Pendiente</option>
-                            <option>En Proceso</option>
-                            <option>Finalizada</option>
+
+                        <select ng-model="nuevaOrden.estado">
+
+                            <option ng-repeat="e in estados">
+                                {{e}}
+                            </option>
+
                         </select>
+
                     </div>
 
                     <div class="form-group full">
+
                         <label>Descripción del Trabajo *</label>
-                        <textarea rows="3"></textarea>
+
+                        <textarea rows="3" ng-model="nuevaOrden.descripcion">
+</textarea>
+
                     </div>
 
                     <div class="form-group full">
+
                         <label>Observaciones</label>
-                        <textarea rows="2"></textarea>
+
+                        <textarea rows="2" ng-model="nuevaOrden.observaciones">
+</textarea>
+
                     </div>
 
                 </div>
 
                 <div class="modal-actions">
-                    <a href="#" class="btn-cancel">Cancelar</a>
-                    <button class="btn-primary">Crear</button>
+
+                    <a href="#" class="btn-cancel">
+                        Cancelar
+                    </a>
+
+                    <button class="btn-primary">
+                        Crear
+                    </button>
+
                 </div>
+
             </form>
 
         </div>
+
     </div>
 
     <!-- MODAL EDITAR -->
 
     <div id="modalEditarOrden" class="modal">
+
         <div class="modal-content">
 
             <div class="modal-header">
@@ -138,49 +231,80 @@
                 <a href="#" class="close">&times;</a>
             </div>
 
-            <form class="modal-form">
+            <form class="modal-form" ng-submit="guardarOrden()">
+
                 <div class="form-grid">
 
                     <div class="form-group">
+
                         <label>Cliente *</label>
-                        <select>
-                            <option selected>María González</option>
+
+                        <select ng-model="ordenEdit.cliente">
+
+                            <option ng-repeat="c in clientes">
+                                {{c.nombre}}
+                            </option>
+
                         </select>
+
                     </div>
 
                     <div class="form-group">
+
                         <label>Estado</label>
-                        <select>
-                            <option>Pendiente</option>
-                            <option selected>En Proceso</option>
-                            <option>Finalizada</option>
+
+                        <select ng-model="ordenEdit.estado">
+
+                            <option ng-repeat="e in estados">
+                                {{e}}
+                            </option>
+
                         </select>
+
                     </div>
 
                     <div class="form-group full">
+
                         <label>Descripción del Trabajo *</label>
-                        <textarea rows="3">Instalación de equipo de cómputo</textarea>
+
+                        <textarea rows="3" ng-model="ordenEdit.descripcion">
+</textarea>
+
                     </div>
 
                     <div class="form-group full">
+
                         <label>Observaciones</label>
-                        <textarea rows="2">Coordinar fecha de instalación</textarea>
+
+                        <textarea rows="2" ng-model="ordenEdit.observaciones">
+</textarea>
+
                     </div>
 
                 </div>
 
                 <div class="modal-actions">
-                    <a href="#" class="btn-cancel">Cancelar</a>
-                    <button class="btn-primary">Guardar</button>
+
+                    <a href="#" class="btn-cancel">
+                        Cancelar
+                    </a>
+
+                    <button class="btn-primary">
+                        Guardar
+                    </button>
+
                 </div>
+
             </form>
 
         </div>
+
     </div>
 
-    <!-- MODAL VER  -->
+    <!-- MODAL VER -->
 
     <div id="modalVerOrden" class="modal">
+
         <div class="modal-content view-mode">
 
             <div class="modal-header">
@@ -191,33 +315,56 @@
             <div class="form-grid">
 
                 <div class="form-group">
+
                     <label>Cliente</label>
-                    <input type="text" value="María González" disabled>
+
+                    <input type="text" ng-model="ordenSeleccionada.cliente" disabled>
+
                 </div>
 
                 <div class="form-group">
+
                     <label>Estado</label>
-                    <input type="text" value="En Proceso" disabled>
+
+                    <input type="text" ng-model="ordenSeleccionada.estado" disabled>
+
                 </div>
 
                 <div class="form-group full">
+
                     <label>Descripción del Trabajo</label>
-                    <textarea rows="3" disabled>Instalación de equipo de cómputo</textarea>
+
+                    <textarea rows="3" ng-model="ordenSeleccionada.descripcion" disabled>
+</textarea>
+
                 </div>
 
                 <div class="form-group full">
+
                     <label>Observaciones</label>
-                    <textarea rows="2" disabled>Coordinar fecha de instalación</textarea>
+
+                    <textarea rows="2" ng-model="ordenSeleccionada.observaciones" disabled>
+</textarea>
+
                 </div>
 
             </div>
 
             <div class="modal-actions">
-                <a href="#" class="btn-cancel">Cerrar</a>
+
+                <a href="#" class="btn-cancel">
+                    Cerrar
+                </a>
+
             </div>
 
         </div>
+
     </div>
+
+    <!-- JS -->
+
+    <script src="js/ordenes.js"></script>
 
 </body>
 
