@@ -1,14 +1,20 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" ng-app="inventarioApp">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compras - ACME S.A.S.</title>
+
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/compras.js"></script>
+
 </head>
 
-<body>
+<body ng-controller="comprasCtrl">
+
     <input type="checkbox" id="menu-toggle" class="menu-toggle">
     <label for="menu-toggle" class="menu-icon">☰</label>
 
@@ -16,6 +22,7 @@
 
         <!-- SIDEBAR -->
         <aside class="sidebar">
+
             <div>
                 <h2>ACME S.A.S.</h2>
                 <span class="sistema">Sistema de Inventario</span>
@@ -38,32 +45,57 @@
                 <span>Administrador</span>
                 <button class="btn-logout">Cerrar Sesión</button>
             </div>
+
         </aside>
+
 
         <!-- CONTENIDO -->
         <main class="main">
 
             <div class="header">
+
                 <div>
                     <h1>Compras</h1>
                     <p>Registro de compras a proveedores</p>
                 </div>
-                <a href="#modalNuevaCompra" class="btn-primary">+ Nueva Compra</a>
             </div>
+            <a href="#modalNuevaCompra" class="btn-new">+ Nueva Compra</a>
 
-            <div class="card">
-                <h3>COMP-2026-001</h3>
-                <p>28/02/2026</p>
-                <p><strong>Proveedor:</strong> Distribuidora Nacional</p>
-                <p><strong>Items:</strong> 1</p>
-                <p><strong>Total:</strong> $14.875.000</p>
-                <a href="#modalDetalleCompra" class="btn-outline full">Ver Detalle</a>
+
+
+            <!-- CARDS DE COMPRAS -->
+
+            <div class="card" ng-repeat="c in compras track by $index">
+
+                <h3>{{c.codigo}}</h3>
+
+                <p>{{c.fecha}}</p>
+
+                <p><strong>Proveedor:</strong> {{c.proveedor}}</p>
+
+                <p><strong>Items:</strong> {{totalItems(c.items)}}</p>
+
+                <p><strong>Total:</strong> ${{c.total | number}}</p>
+
+                <a href="#modalDetalleCompra" class="btn-outline full" ng-click="verDetalle(c)">
+                    Ver Detalle
+                </a>
+
+                <button class="btn-outline full" ng-click="editarCompra(c)">
+                    Editar
+                </button>
+
+                <button class="btn-outline full" ng-click="eliminarCompra($index)">
+                    Eliminar
+                </button>
+
             </div>
 
         </main>
     </div>
 
-    <!-- MODAL NUEVA COMPRA  -->
+
+    <!-- MODAL NUEVA COMPRA -->
 
     <div id="modalNuevaCompra" class="modal">
         <div class="modal-content">
@@ -76,41 +108,62 @@
                 <a href="#" class="close">&times;</a>
             </div>
 
+
             <div class="modal-body">
 
                 <label>Proveedor *</label>
-                <select class="input">
-                    <option>Seleccione un proveedor...</option>
-                    <option>Distribuidora Nacional</option>
-                    <option>Proveedor Tech</option>
+
+                <select class="input" ng-model="compra.proveedor">
+                    <option value="">Seleccione...</option>
+                    <option ng-repeat="p in proveedores">{{p.nombre}}</option>
                 </select>
 
+
                 <div class="box-item">
+
                     <h3>Agregar Item</h3>
 
                     <div class="row-item">
+
                         <div class="col">
+
                             <label>Producto</label>
-                            <select class="input">
-                                <option>Seleccione...</option>
-                                <option>Laptop HP Pavilion</option>
-                                <option>Monitor Samsung</option>
+
+                            <select class="input" ng-model="item.producto">
+
+                                <option value="">Seleccione...</option>
+
+                                <option ng-repeat="p in productos" ng-value="p">
+                                    {{p.nombre}}
+                                </option>
+
                             </select>
+
                         </div>
+
 
                         <div class="col-small">
+
                             <label>Cantidad</label>
-                            <input type="number" class="input" value="1">
+
+                            <input type="number" class="input" ng-model="item.cantidad">
+
                         </div>
 
-                        <button class="btn-primary btn-agregar">+ Agregar</button>
+                        <button class="btn-primary btn-agregar" ng-click="agregarItem()">
+                            + Agregar
+                        </button>
+
                     </div>
                 </div>
+
 
                 <h3 class="titulo-tabla">Items de la Compra</h3>
 
                 <div class="tabla-contenedor">
+
                     <table class="tabla">
+
                         <thead>
                             <tr>
                                 <th>Producto</th>
@@ -119,39 +172,64 @@
                                 <th>Total</th>
                             </tr>
                         </thead>
+
                         <tbody>
+
+                            <tr ng-repeat="i in compra.items">
+
+                                <td>{{i.producto}}</td>
+                                <td>{{i.cantidad}}</td>
+                                <td>${{i.precio | number}}</td>
+                                <td>${{i.total | number}}</td>
+
+                            </tr>
+
                             <tr>
                                 <td colspan="3" class="text-right">Subtotal:</td>
-                                <td>$0</td>
+                                <td>${{subtotal | number}}</td>
                             </tr>
+
                             <tr>
                                 <td colspan="3" class="text-right">IVA (19%):</td>
-                                <td>$0</td>
+                                <td>${{iva | number}}</td>
                             </tr>
+
                             <tr class="fila-final">
                                 <td colspan="3" class="text-right">Total:</td>
-                                <td>$0</td>
+                                <td>${{total | number}}</td>
                             </tr>
+
                         </tbody>
+
                     </table>
+
                 </div>
 
+
                 <label>Observaciones</label>
-                <textarea class="input"></textarea>
+                <textarea class="input" ng-model="compra.observaciones"></textarea>
 
             </div>
 
+
             <div class="modal-footer">
+
                 <a href="#" class="btn-outline">Cancelar</a>
-                <button class="btn-primary">Registrar Compra</button>
+
+                <button class="btn-primary" ng-click="guardarCompra()">
+                    Registrar Compra
+                </button>
+
             </div>
 
         </div>
     </div>
 
+
     <!-- MODAL DETALLE -->
 
     <div id="modalDetalleCompra" class="modal">
+
         <div class="modal-content">
 
             <div class="modal-header">
@@ -162,17 +240,22 @@
                 <a href="#" class="close">&times;</a>
             </div>
 
+
             <div class="modal-body">
 
                 <label>Proveedor</label>
+
                 <select class="input" disabled>
-                    <option selected>Distribuidora Nacional</option>
+                    <option selected>{{compraDetalle.proveedor}}</option>
                 </select>
+
 
                 <h3 class="titulo-tabla">Items de la Compra</h3>
 
                 <div class="tabla-contenedor">
+
                     <table class="tabla">
+
                         <thead>
                             <tr>
                                 <th>Producto</th>
@@ -181,31 +264,38 @@
                                 <th>Total</th>
                             </tr>
                         </thead>
+
                         <tbody>
-                            <tr>
-                                <td>Laptop HP Pavilion</td>
-                                <td>5</td>
-                                <td>$2.500.000</td>
-                                <td>$12.500.000</td>
+
+                            <tr ng-repeat="i in compraDetalle.items">
+
+                                <td>{{i.producto}}</td>
+                                <td>{{i.cantidad}}</td>
+                                <td>${{i.precio | number}}</td>
+                                <td>${{i.total | number}}</td>
+
                             </tr>
+
                             <tr>
                                 <td colspan="3" class="text-right">Subtotal:</td>
-                                <td>$12.500.000</td>
+                                <td>${{compraDetalle.subtotal | number}}</td>
                             </tr>
+
                             <tr>
                                 <td colspan="3" class="text-right">IVA (19%):</td>
-                                <td>$2.375.000</td>
+                                <td>${{compraDetalle.iva | number}}</td>
                             </tr>
+
                             <tr class="fila-final">
                                 <td colspan="3" class="text-right">Total:</td>
-                                <td>$14.875.000</td>
+                                <td>${{compraDetalle.total | number}}</td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
 
-                <label>Observaciones</label>
-                <textarea class="input" disabled></textarea>
+                        </tbody>
+
+                    </table>
+
+                </div>
 
             </div>
 
