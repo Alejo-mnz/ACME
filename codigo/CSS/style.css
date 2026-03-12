@@ -228,6 +228,11 @@ body {
   gap: 10px;
 }
 
+.lista-items {
+  margin: 5px 0 10px 15px;
+  font-size: 14px;
+}
+
 .product-info {
   font-size: 14px;
   line-height: 1.6;
