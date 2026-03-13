@@ -1,15 +1,21 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="inventarioApp">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Categorías| ACME S.A.S.</title>
+
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
 </head>
 
-<body>
+<body ng-controller="categoriasCtrl">
     <input type="checkbox" id="menu-toggle">
 
     <div class="layout">
@@ -24,9 +30,9 @@
                 <nav class="menu">
                     <a href="index.html">Dashboard</a>
                     <a href="productos.html">Productos</a>
-                    <a href="clientes.html" >Clientes</a>
+                    <a href="clientes.html">Clientes</a>
                     <a href="proveedores.html">Proveedores</a>
-                    <a href="categorias.html"class="active">Categorías</a>
+                    <a href="categorias.html" class="active">Categorías</a>
                     <a href="cotizaciones.html">Cotizaciones</a>
                     <a href="ordenes.html">Órdenes de Tabajo</a>
                     <a href="compras.html">Compras</a>
@@ -49,70 +55,39 @@
             </header>
 
             <!-- AGREGAR CATEGORIA -->
-            <a href="#nuevoCategoria" class="btn-new">
+            <a href="#nuevoCategoria" class="btn-new"><!--modales con :target, apunta al modal de nueva catego-->
                 + Nueva Categoria
             </a>
 
             <!-- GRID Categorías -->
-            <section class="catego-grid">
+            <section class="catego-grid"><!--contenedor de las categorias-->
                 <!-- Categorías -->
-                <div class="catego-card">
-                    <div class="catego-header">
-                        <h3>Electrónica</h3>
-                    </div>
-                    <div class="catego-info">
-                        <p><strong>Productos Electrónicos</strong>
-                    </div>
 
-                    <div class="card-actions">
-                        <a href="#editarCategoria1" class="btn-edit">Editar</a>
-                        <a href="#eliminarCategoria1" class="btn-delete">Borrar</a>
+                <div class="catego-card" ng-repeat="c in categorias track by c.nombre">
+                    
+                    <h3>{{c.nombre}}</h3>
+
+                    <p><strong>Descripción:</strong> {{c.descripcion}}</p>
+
+                    <div class="card-actions"> <!--botones-->
+                        <a href="#editarCategoria1" class="btn-edit" ng-click="editarCategoria(c)">
+                            Editar
+                        </a>
+                        <a href="#eliminarCategoria1" class="btn-delete" ng-click="confirmarEliminar(c)">
+                            Borrar
+                        </a>
                     </div>
                 </div>
 
-                <div class="catego-card">
-                    <div class="catego-header">
-                        <h3>Ferretería</h3>
-                    </div>
-                        <p><strong>Herramientas y materiales</strong>
-
-                    <div class="card-actions">
-                        <a href="#" class="btn-edit">Editar</a>
-                        <a href="#" class="btn-delete">Borrar</a>
-                    </div>
-                </div>
-                <div class="catego-card">
-                    <div class="catego-header">
-                        <h3>Oficina</h3>
-                    </div>
-                    <div class="catego-info">
-                        <p><strong>Suministros de oficina</strong>
-                    </div>
-
-                    <div class="card-actions">
-                        <a href="#" class="btn-edit">Editar</a>
-                        <a href="#" class="btn-delete">Borrar</a>
-                    </div>
-                </div>
-                <div class="catego-card">
-                    <div class="catego-header">
-                        <h3>Hogar</h3>
-                    </div>
-                    <div class="catego-info">
-                        <p><strong>Artículos para el hogar</strong>
-                    </div>
-
-                    <div class="card-actions">
-                        <a href="#" class="btn-edit">Editar</a>
-                        <a href="#" class="btn-delete">Borrar</a>
-                    </div>
-                </div>
             </section>
         </main>
     </div>
-    <!-- MODAL NUEVO CATEGORIA -->
+
+    <!-- MODAL NUEVA CATEGORIA -->
     <div id="nuevoCategoria" class="modal">
+
         <div class="modal-content">
+            
             <div class="modal-header">
                 <h2>Nueva Categoria</h2>
                 <a href="#" class="close">&times;</a>
@@ -120,18 +95,18 @@
 
             <p class="modal-subtitle">Complete la información de la categoría</p>
 
-            <form>
+            <form class="modal-form" ng-submit="agregarCategoria()">
 
-                <div class="form-grid">
+                <div class="form-grid"> <!--permite organizar campos en columnas.-->
 
-                    <div class="form-group">
+                    <div class="form-group"> <!--Agrupar label + input-->
                         <label>Nombre *</label>
-                        <input type="text">
+                        <input type="text" ng-model="nuevoCategoria.nombre">
                     </div>
 
                     <div class="form-group">
                         <label>Descripción *</label>
-                        <input type="text">
+                        <input type="text" ng-model="nuevoCategoria.descripcion">
                     </div>
 
                 </div>
@@ -144,6 +119,8 @@
 
         </div>
     </div>
+
+    <!-- MODAL EDITAR CATEGORIA -->
 
     <div id="editarCategoria1" class="modal">
         <div class="modal-content">
@@ -155,21 +132,22 @@
 
             <p class="modal-subtitle">Complete la información de la categoria</p>
 
-            <form>
 
-                <div class="form-grid">
+            <form class="modal-form" ng-submit="guardarEdicionCategoria()">
+
+                <div class="form-grid"> <!--permite organizar campos en columnas.-->
 
                     <div class="form-group">
                         <label>Nombre *</label>
-                        <input type="text" value="Electrónica">
+                        <input type="text" ng-model="categoriaEdit.nombre">
                     </div>
 
                     <div class="form-group">
                         <label>Descripción *</label>
-                        <input type="text" value="Productos Electrónicos">
+                        <input type="text" ng-model="categoriaEdit.descripcion">
                     </div>
 
-                    
+
                 </div>
 
                 <div class="modal-actions">
@@ -182,8 +160,11 @@
         </div>
     </div>
 
+
+    <!-- MODAL ELIMINAR CATEGORIA -->
+
     <div id="eliminarCategoria1" class="modal">
-        <div class="modal-content small">
+        <div class="modal-content small"> <!--modal pequeño de confirmacion-->
 
             <div class="modal-header">
                 <h2>Eliminar Categoría</h2>
@@ -194,11 +175,16 @@
 
             <div class="modal-actions">
                 <a href="#" class="btn-cancel">Cancelar</a>
-                <button class="btn-danger">Eliminar</button>
+                <button class="btn-danger" ng-click="eliminarCategoria()">Eliminar</button>
             </div>
 
         </div>
     </div>
+
+
+    <!-- JS CATEGORIAS -->
+
+    <script src="js/categorias.js"></script>
 
 </body>
 
