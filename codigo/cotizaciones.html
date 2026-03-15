@@ -7,9 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotizaciones | ACME S.A.S.</title>
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/cotizaciones.js"></script> 
 </head>
 
-<body>
+<body ng-app="inventarioApp" ng-controller="cotizacionesCtrl">
     <input type="checkbox" id="menu-toggle">
 
     <div class="layout">
@@ -27,7 +30,7 @@
                     <a href="clientes.html">Clientes</a>
                     <a href="proveedores.html">Proveedores</a>
                     <a href="categorias.html">Categorías</a>
-                    <a href="cotizaciones.html"class="active">Cotizaciones</a>
+                    <a href="cotizaciones.html" class="active">Cotizaciones</a>
                     <a href="ordenes.html">Órdenes de Tabajo</a>
                     <a href="compras.html">Compras</a>
                     <a href="reportes.html">Reportes</a>
@@ -49,37 +52,36 @@
             </header>
 
             <!-- AGREGAR COTIZACIONES -->
-            <a href="#modalCotizacion" class="btn-new">
+            <a href="#modalCotizacion" class="btn-new"> 
                 + Nueva Cotización
             </a>
 
-                <!-- COTIZACIONES -->
-                <div class="cotiz-card">
-                    <div class="cotiz-header">
-                        <div class="cotiz-title">
-                            <h3>COT-2026-001</h3>
-                            <div class="cotiz-info">
-                                <p>31/01/2026</p>
-                            </div>
-                        </div>
-                        <span class="cotiz-status">PENDIENTE</span>                       
-                    </div>
+            <!-- COTIZACIONES -->
+            <div class="cotiz-card" ng-repeat="c in cotizaciones track by $index"> 
+                <h3>{{c.codigo}}</h3>
 
-                    <div class="cotiz-info">
-                        <p><strong>Cliente:</strong> Construcciones XYZ Ltda.</p>
-                        <p><strong>Ítems:</strong> 2</p>
-                        <p><strong>Total:</strong> $1,451.800</p>
-                    </div>
+                <p>{{c.fecha}}</p>
 
-                    <div class="cotiz-actions">
-                        <a href="#verCotizacion1" class="btn-view">Ver</a>
-                        <a href="#imprimirCotizacion1" class="btn-view">Imprimir</a>
-                        <a href="#editarCotizacion1" class="btn-edit">Editar</a>
-                        <a href="#eliminarCotizacion1" class="btn-delete">Borrar</a>
-                    </div>
+                <p><strong>Cliente:</strong> {{c.cliente}}</p>
+
+                <p><strong>Items:</strong> {{totalItems(c.items)}}</p>
+
+                <p><strong>Total:</strong> ${{c.total | number}}</p>
+
+
+                <div class="cotiz-actions"> <!--botones-->
+                    <a href="#verCotizacion1" class="btn-view" ng-click="verCotizacion(c)">Ver</a>
+                    <a href="#imprimirCotizacion1" class="btn-view" ng-click="verCotizacion(c)">Imprimir</a>
+                    <a href="#editarCotizacion1" class="btn-edit" ng-click="editarCotizacion(c)">Editar</a>
+                    <a href="#eliminarCotizacion1" class="btn-delete" ng-click="cotizacionEliminar = $index">Borrar</a>
                 </div>
+            </div>
         </main>
     </div>
+
+
+    <!-- MODAL NUEVA COTIZACION -->
+
     <div id="modalCotizacion" class="modal">
         <div class="modal-content">
 
@@ -92,19 +94,19 @@
 
             <form class="modal-form">
 
-                <div class="form-grid">
-                    <div class="cotiz-form-group">
+                <div class="form-grid"> <!--permite organizar campos en columnas.-->
+                    <div class="cotiz-form-group"> <!--Agrupa labbel y select-->
+
                         <label>Cliente *</label>
-                        <select>
+                        <select class="input" ng-model="cotizacion.cliente">
                             <option disabled selected>Seleccione...</option>
-                            <option>Construcciones XYZ Ltda</option>
-                            <option>María Gonzalez</option>
+                            <option ng-repeat="c in clientes">{{c.nombre}}</option>
                         </select>
                     </div>
 
                     <div class="cotiz-form-group">
                         <label>Estado *</label>
-                        <select>
+                        <select class="input" ng-model="cotizacion.estado">
                             <option disabled selected>Seleccione...</option>
                             <option>Pendiente</option>
                             <option>Agotado</option>
@@ -112,45 +114,43 @@
                         </select>
                     </div>
 
-                    
 
-                    <div class="add-item">
+
+                    <div class="add-item"><!-- Aquí se modela: Producto, Cantidad, Descuento, Botón Agregar-->
                         <div class="cotiz-form-group">
                             <h3 class="section-title">Agregar Ítem:</h3>
                             <label>Producto</label>
-                            <select>
+                            <select class="input" ng-model="item.producto">
                                 <option disabled selected>Seleccione...</option>
-                                <option>Taladro Eléctrico - $280.000</option>
-                                <option>Laptop HP Pavilion - $3.200.000</option>
-                                <option>Resma Papel Carta - $18.000</option>
-                                <option>Mouse Inalámbrico - $40.000</option>
-                                <option>Lámpara LED - $15.000</option>
+                                <option ng-repeat="p in productos" ng-value="p">
+                                    {{p.nombre}}
+                                </option>
                             </select>
                         </div>
 
                         <div class="cotiz-form-group small">
                             <label>Cantidad</label>
-                            <input type="number" value="1" min="1">
+                            <input type="number" value="1" min="1" class="input" ng-model="item.cantidad">
                         </div>
 
-                        <div class="cotiz-form-group small">
+                        <div class="cotiz-form-group small"> <!--OOOOOJJJJJJOOOOOOOOOOOOOOOO-->
                             <label>Desc. %</label>
-                            <input type="number" value="0" min="0">
+                            <input type="number" min="0" max="100" ng-model="item.descuento" class="input">
                         </div>
 
                         <div class="cotiz-form-group button-group">
-                            <button type="button" class="btn-primary">
+                            <button type="button" class="btn-primary btn-agregar" ng-click="agregarItem()">
                                 + Agregar
                             </button>
                         </div>
-                    </div>                
+                    </div>
                 </div>
 
 
                 <div class="items-section">
                     <h3 class="section-title">Ítems de la Cotización:</h3>
 
-                    <table class="items-table">
+                    <table class="items-table"><!-- Columnas: Producto, Cantidad, Precio unitario, Descuento, Total, Acción eliminar-->
                         <thead>
                             <tr>
                                 <th>Producto</th>
@@ -162,38 +162,57 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Laptop HP Pavilion</td>
-                                <td>1</td>
-                                <td>$3.200.000</td>
-                                <td>0%</td>
-                                <td>$3.200.000</td>
-                                <td><button class="cotiz-btn-delete">X</button></td>
+                            <tr ng-repeat="i in cotizacion.items">
+                                <td>{{i.producto}}</td>
+                                <td>{{i.cantidad}}</td>
+                                <td>${{i.precio | number}}</td>
+                                <td>{{i.descuento}}%</td> <!--OOOOOJJJJJJOOOOOOOOOOOOOOOO-->
+                                <td>${{i.total | number}}</td>
+                                <td><button class="cotiz-btn-delete" ng-click="eliminarItem($index)">X</button></td> <!--OOOOOJJJJJJOOOOOOOOOOOOOOOO-->
                             </tr>
                         </tbody>
                     </table>
 
                     <div class="totals">
-                        <div class="totals-box">
-                            <p>Subtotal: <span>$3.200.000</span></p>
-                            <p>IVA (19%): <span>$53.200</span></p>
-                            <p class="total-final">Total: <span>$3.253.000</span></p>
-                        </div>
+                        <table class="totals-box"> <!--Aquí hay: Subtotal, IVA, Total final-->
+                            <tbody>
+                                <tr>
+                                    <td colspan="3" class="text-right">Subtotal:</td>
+                                    <td>${{subtotal | number}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3" class="text-right">IVA (19%):</td>
+                                    <td>${{iva | number}}</td>
+                                </tr>
+
+                                <tr class="fila-final">
+                                    <td colspan="3" class="text-right">Total:</td>
+                                    <td>${{total | number}}</td>
+                                </tr>
+
+                            </tbody>
+                            
+                        </table>
                     </div>
                 </div>
                 <div class="form-group full">
-                        <label>Observaciones: </label>
-                        <textarea rows="3"></textarea>
-                    </div>
+                    <label>Observaciones: </label>
+                    <textarea rows="3" class="input" ng-model="cotizacion.observaciones"></textarea>
+                </div>
                 <div class="modal-actions">
                     <a href="#" class="btn-cancel">Cancelar</a>
-                    <button type="submit" class="btn-create">Crear</button>
+                    <button type="button" class="btn-create" ng-click="guardarCotizacion()">Crear</button>
                 </div>
 
             </form>
 
         </div>
     </div>
+
+
+    <!-- MODAL VER COTIZACION -->
+
     <div id="verCotizacion1" class="modal">
         <div class="modal-content">
 
@@ -209,7 +228,9 @@
                 <div class="form-grid">
                     <div class="cotiz-form-group">
                         <label>Cliente *</label>
-                        <input type="text" value="Construcciones XYZ Ltda" readonly>
+                        <select class="input" disabled>
+                            <option selected>{{cotizacionver.cliente}}</option>
+                        </select>
                     </div>
 
                     <div class="cotiz-form-group">
@@ -235,29 +256,39 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Laptop HP Pavilion</td>
-                                <td>1</td>
-                                <td>$3.200.000</td>
-                                <td>0%</td>
-                                <td>$3.200.000</td>
+                            <tr ng-repeat="i in cotizacionver.items">
+                                
+                                <td>{{i.producto}}</td>
+                                <td>{{i.cantidad}}</td>
+                                <td>${{i.precio | number}}</td>
+                                <td>{{i.descuento | number}}%</td>
+                                <td>${{i.total | number}}</td>
                             </tr>
+
+
+                                <tr>
+                                    <td colspan="4" class="text-right">Subtotal:</td>
+                                    <td>${{cotizacionver.subtotal | number}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="4" class="text-right">IVA (19%):</td>
+                                    <td>${{cotizacionver.iva | number}}</td>
+                                </tr>
+
+                                <tr class="fila-final">
+                                    <td colspan="4" class="text-right">Total:</td>
+                                    <td>${{cotizacionver.total | number}}</td>
+                                </tr>
+                        
                         </tbody>
                     </table>
-
-                    <div class="totals">
-                        <div class="totals-box">
-                            <p>Subtotal: <span>$3.200.000</span></p>
-                            <p>IVA (19%): <span>$53.200</span></p>
-                            <p class="total-final">Total: <span>$3.253.000</span></p>
-                        </div>
-                    </div>
                 </div>
-                <div class="form-group full">
-                        <label>Observaciones: </label>
-                        <input type="text" value="PC Gamer" readonly>
-                        
-                    </div>
+                <div class="form-group full"> <!--OOOOOJJJJJJOOOOOOOOOOOOOOOO-->
+                    <label>Observaciones: </label>
+                    <textarea class="input" readonly>{{cotizacionver.observaciones}}</textarea>
+
+                </div>
                 <div class="modal-actions">
                     <a href="#" class="btn-cancel">Cerrar</a>
                 </div>
@@ -279,60 +310,82 @@
             <p class="modal-subtitle">Información de la Cotización</p>
 
             <form class="modal-form">
+                <div id="zonaImprimir">
 
-                <div class="form-grid">
-                    <div class="cotiz-form-group">
-                        <label>Cliente *</label>
-                        <input type="text" value="Construcciones XYZ Ltda" readonly>
+                    <div class="form-grid">
+
+                        <div class="cotiz-form-group">
+                            <label>Cliente</label>
+                            <input class="input" type="text"
+                                value="{{cotizacionver.cliente}}" readonly>
+                        </div>
+
+                        <div class="cotiz-form-group">
+                            <label>Fecha</label>
+                            <input class="input" type="text"
+                            value="{{cotizacionver.fecha}}" readonly>
+                        </div>
+
                     </div>
 
-                    <div class="cotiz-form-group">
-                        <label>Estado *</label>
-                        <input type="text" value="Pendiente" readonly>
-                    </div>
+                    <div class="items-section">
 
-                </div>
+                        <h3 class="section-title">Ítems</h3>
 
+                        <table class="items-table">
 
-                <div class="items-section">
-                    <h3 class="section-title">Ítems de la Cotización:</h3>
-
-                    <table class="items-table">
-                        <thead>
-                            <tr>
+                            <thead>
+                                <tr>
                                 <th>Producto</th>
                                 <th>Cant.</th>
                                 <th>P. Unit.</th>
-                                <th>Desc. %</th>
+                                <th>Desc</th>
                                 <th>Total</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Laptop HP Pavilion</td>
-                                <td>1</td>
-                                <td>$3.200.000</td>
-                                <td>0%</td>
-                                <td>$3.200.000</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                </tr>
+                            </thead>
 
-                    <div class="totals">
+                            <tbody>
+
+                                <tr ng-repeat="i in cotizacionver.items">
+
+                                    <td>{{i.producto}}</td>
+                                    <td>{{i.cantidad}}</td>
+                                    <td>${{i.precio | number}}</td>
+                                    <td>{{i.descuento}}%</td>
+                                    <td>${{i.total | number}}</td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
                         <div class="totals-box">
-                            <p>Subtotal: <span>$3.200.000</span></p>
-                            <p>IVA (19%): <span>$53.200</span></p>
-                            <p class="total-final">Total: <span>$3.253.000</span></p>
+
+                            <p>Subtotal: ${{cotizacionver.subtotal | number}}</p>
+                            <p>IVA: ${{cotizacionver.iva | number}}</p>
+                            <p class="total-final">
+                            Total: ${{cotizacionver.total | number}}
+                            </p>
+
                         </div>
+
                     </div>
+
+                    <div class="form-group full">
+                        <label>Observaciones</label>
+
+                        <textarea class="input" readonly> {{cotizacionver.observaciones}} </textarea>
+                    </div>
+
                 </div>
-                <div class="form-group full">
-                        <label>Observaciones: </label>
-                        <input type="text" value="PC Gamer" readonly>
-                    </div>
+
                 <div class="modal-actions">
-                    <button type="submit" class="btn-create">Imprimir</button>
+
+                    <button type="button" class="btn-create" ng-click="imprimirCotizacion()">
+                        Imprimir
+                    </button>
+
                 </div>
 
             </form>
@@ -353,99 +406,98 @@
             <form class="modal-form">
 
                 <div class="form-grid">
+
                     <div class="cotiz-form-group">
                         <label>Cliente *</label>
-                        <select>
-                            <option selected>Construcciones XYZ Ltda</option>
-                            <option>María Gonzalez</option>
-                        </select>
-                    </div>
 
-                    <div class="cotiz-form-group">
-                        <label>Estado *</label>
-                        <select>
-                            <option selected>Pendiente</option>
-                            <option>Agotado</option>
-                            <option>Rechazado</option>
+                        <select class="input" ng-model="cotizacion.cliente">
+
+                            <option ng-repeat="c in clientes">
+                                {{c.nombre}}
+                            </option>
 
                         </select>
+
                     </div>
 
-                    
-
-                    <div class="add-item">
-                        <div class="cotiz-form-group">
-                            <h3 class="section-title">Agregar Ítem:</h3>
-                            <label>Producto</label>
-                            <select>
-                                <option disabled selected>Laptop HP Pavilion - $3.200.000</option>
-                                <option>Taladro Eléctrico - $280.000</option>
-                                <option>Resma Papel Carta - $18.000</option>
-                                <option>Mouse Inalámbrico - $40.000</option>
-                                <option>Lámpara LED - $15.000</option>
-                            </select>
-                        </div>
-
-                        <div class="cotiz-form-group small">
-                            <label>Cantidad</label>
-                            <input type="number" value="1">
-                        </div>
-
-                        <div class="cotiz-form-group small">
-                            <label>Desc. %</label>
-                            <input type="number" value="0">
-                        </div>
-
-                        <div class="cotiz-form-group button-group">
-                            <button type="button" class="btn-primary">
-                                + Agregar
-                            </button>
-                        </div>
-                    </div>                
                 </div>
 
 
                 <div class="items-section">
-                    <h3 class="section-title">Ítems de la Cotización:</h3>
+
+                    <h3 class="section-title">Ítems</h3>
 
                     <table class="items-table">
+
                         <thead>
                             <tr>
                                 <th>Producto</th>
-                                <th>Cant.</th>
-                                <th>P. Unit.</th>
-                                <th>Desc. %</th>
+                                <th>Cant</th>
+                                <th>P.Unit</th>
+                                <th>Desc</th>
                                 <th>Total</th>
                                 <th></th>
                             </tr>
                         </thead>
+
                         <tbody>
-                            <tr>
-                                <td>Laptop HP Pavilion</td>
-                                <td>1</td>
-                                <td>$3.200.000</td>
-                                <td>0%</td>
-                                <td>$3.200.000</td>
-                                <td><button class="cotiz-btn-delete">X</button></td>
+
+                            <tr ng-repeat="i in cotizacion.items">
+
+                                <td>{{i.producto}}</td>
+
+                                <td>
+                                    <input type="number" class="input" ng-model="i.cantidad" ng-change="recalcularEdicion()">
+                                </td>
+
+                                <td>${{i.precio | number}}</td>
+
+                                <td>
+                                    <input type="number" class="input" ng-model="i.descuento" ng-change="recalcularEdicion()">
+                                </td>
+
+                                <td>${{i.total | number}}</td>
+
+                                <td>
+                                    <button type="button" class="cotiz-btn-delete" ng-click="eliminarItem($index)">
+                                        X
+                                    </button>
+
+                                </td>
+
                             </tr>
+
                         </tbody>
+
                     </table>
 
-                    <div class="totals">
-                        <div class="totals-box">
-                            <p>Subtotal: <span>$3.200.000</span></p>
-                            <p>IVA (19%): <span>$53.200</span></p>
-                            <p class="total-final">Total: <span>$3.253.000</span></p>
-                        </div>
-                    </div>
                 </div>
+
                 <div class="form-group full">
-                        <label>Observaciones: </label>
-                        <input type="text" value="PC Gamer">
-                    </div>
+
+                    <label>Observaciones</label>
+
+                    <textarea class="input" ng-model="cotizacion.observaciones"></textarea>
+
+                </div>
+
+                <div class="totals-box">
+
+                    <p>Subtotal: ${{subtotal | number}}</p>
+                    <p>IVA: ${{iva | number}}</p>
+                    <p>Total: ${{total | number}}</p>
+
+                </div>
+
                 <div class="modal-actions">
+
                     <a href="#" class="btn-cancel">Cancelar</a>
-                    <button type="submit" class="btn-create">Crear</button>
+
+                    <button type="button" class="btn-create" ng-click="guardarEdicion()">
+                        Guardar Cambios
+
+                    </button>
+
                 </div>
 
             </form>
@@ -454,7 +506,7 @@
     </div>
 
     <div id="eliminarCotizacion1" class="modal">
-        <div class="modal-content small">
+        <div class="modal-content small"> <!--modal pequeño de confirmacion-->
 
             <div class="modal-header">
                 <h2>Eliminar Cotización</h2>
@@ -465,7 +517,9 @@
 
             <div class="modal-actions">
                 <a href="#" class="btn-cancel">Cancelar</a>
-                <button class="btn-danger">Eliminar</button>
+                <button type="button" class="btn-danger" ng-click="eliminarCotizacion(cotizacionEliminar)">
+                    Eliminar
+                </button>
             </div>
 
         </div>
