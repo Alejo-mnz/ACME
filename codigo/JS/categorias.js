@@ -52,6 +52,23 @@ app.controller("categoriasCtrl", function ($scope) {
 
 
     /* ================================
+    NORMALIZAR TEXTO (sin tildes ni mayúsculas)
+    ================================ */
+
+    function normalizarTexto(texto) {
+
+        return texto
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+
+    }
+
+
+
+
+
+    /* ================================
     NUEVA CATEGORIA
     ================================ */
 
@@ -64,6 +81,8 @@ app.controller("categoriasCtrl", function ($scope) {
     $scope.agregarCategoria = function () {
 
         var c = $scope.nuevoCategoria;
+        c.nombre = c.nombre.trim(); /* nombre sin espacios */
+
 
 
         /* VALIDACIONES */
@@ -81,7 +100,7 @@ app.controller("categoriasCtrl", function ($scope) {
 
         var existe = $scope.categorias.find(function (cli) {
 
-            return cli.nombre === c.nombre;
+            return normalizarTexto(cli.nombre) === normalizarTexto(c.nombre);
 
         });
 
@@ -131,6 +150,8 @@ app.controller("categoriasCtrl", function ($scope) {
 
     $scope.editarCategoria = function (c) {
 
+        $scope.categoriaOriginal = c.nombre;  /*guardar nombre original*/
+
         $scope.categoriaEdit = angular.copy(c);
 
         window.location.hash = "editarCategoria1";
@@ -145,6 +166,8 @@ app.controller("categoriasCtrl", function ($scope) {
     $scope.guardarEdicionCategoria = function () {
 
         var c = $scope.categoriaEdit;
+        c.nombre = c.nombre.trim(); /* quitar espacios  tambien al editar */
+
 
 
         /* VALIDACIONES */
@@ -163,7 +186,7 @@ app.controller("categoriasCtrl", function ($scope) {
 
         for (var i = 0; i < $scope.categorias.length; i++) {
 
-            if ($scope.categorias[i].nombre === c.nombre) {
+            if (normalizarTexto($scope.categorias[i].nombre) === normalizarTexto($scope.categoriaOriginal)) { /* normalizar tmbn al editar*/
 
                 $scope.categorias[i] = angular.copy(c);
 
@@ -218,6 +241,10 @@ app.controller("categoriasCtrl", function ($scope) {
     };
 
 });
+
+
+
+
 
 
 
