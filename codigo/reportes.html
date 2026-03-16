@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes | ACME S.A.S.</title>
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/reportes.js"></script>
 </head>
 
-<body>
+<body ng-app="inventarioApp" ng-controller="reportesCtrl">
     <input type="checkbox" id="menu-toggle">
 
     <div class="layout">
@@ -52,7 +55,7 @@
             <!-- TABS -->
             <div class="report-tabs">
                 <a href="reportes.html" class="tab active">Generar Reporte</a>
-                <a href="rerportes2.html" class="tab">Histórico</a>
+                <a href="reportes-historico.html" class="tab">Histórico</a>
             </div>
 
             <!-- GENERAR REPORTE -->
@@ -63,49 +66,54 @@
                 <div class="report-form">
                     <div class="full">
                         <label>Tipo de Reporte</label>
-                        <select>
+                        <select ng-model="tipo">
+                            <option disabled selected>Seleccione...</option>
                             <option>Reporte de Inventario</option>
                             <option>Reporte de Ventas</option>
                             <option>Productos Bajo Stock</option>
+
                         </select>
                     </div>
 
                     <div>
                         <label>Fecha Inicio</label>
-                        <input type="date">
+                        <input type="date" ng-model="fechaInicio">
                     </div>
 
                     <div>
                         <label>Fecha Fin</label>
-                        <input type="date">
+                        <input type="date" ng-model="fechaFin">
                     </div>
                 </div>
 
                 <div class="report-actions">
-                    <button class="btn-primary">Generar Reporte</button>
-                    <button class="btn-light">Exportar PDF</button>
+                    <button class="btn-primary" ng-click="generarReporte()">Generar Reporte</button>
+                    <button class="btn-light" ng-click="exportarPDF()">Exportar PDF</button>
                 </div>
             </div>
 
-            <!-- MINI REPORTES -->
-            <div class="report-grid">
-                <div class="mini-report">
-                    <h4>Inventario Actual</h4>
-                    <p>Reporte completo del estado actual del inventario</p>
-                    <button class="btn-light">Generar</button>
+            
+
+            <!-- REPORTES ACTIVOS -->
+
+            <div class="report-card">
+
+                <h3>Reportes Activos</h3>
+                <p class="subtitle">Reportes que aún no han vencido</p>
+
+                <div class="history-item" ng-repeat="r in reportesActivos()">
+
+                    <div>
+                        <strong>{{r.tipo}}</strong>
+                        <span>Generado: {{r.fechaGenerado}}</span>
+                    </div>
+
+                    <button class="btn-light" ng-click="exportarPDF()">
+                        Exportar PDF
+                    </button>
+
                 </div>
 
-                <div class="mini-report">
-                    <h4>Productos Críticos</h4>
-                    <p>Productos con stock por debajo del mínimo</p>
-                    <button class="btn-light">Generar</button>
-                </div>
-
-                <div class="mini-report">
-                    <h4>Movimientos del Mes</h4>
-                    <p>Todas las transacciones del mes actual</p>
-                    <button class="btn-light">Generar</button>
-                </div>
             </div>
 
         </main>
