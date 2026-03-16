@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes | ACME S.A.S.</title>
     <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="js/reportes.js"></script>
 </head>
 
-<body>
+<body ng-app="inventarioApp" ng-controller="reportesCtrl">
     <input type="checkbox" id="menu-toggle">
 
     <div class="layout">
@@ -60,28 +63,12 @@
                 <h3>Reportes Históricos</h3>
                 <p class="subtitle">Listado de reportes generados anteriormente</p>
 
-                <div class="history-item">
+                <div class="history-item" ng-repeat="r in reportesHistoricos()">
                     <div>
-                        <strong>Reporte de Inventario - Enero 2026</strong>
-                        <span>Generado: 31/01/2026</span>
+                        <strong>{{r.tipo}}</strong>
+                        <span>Generado: {{r.fechaGenerado}}</span>
                     </div>
-                    <button class="btn-light">Descargar</button>
-                </div>
-
-                <div class="history-item">
-                    <div>
-                        <strong>Reporte de Ventas - Diciembre 2025</strong>
-                        <span>Generado: 31/12/2025</span>
-                    </div>
-                    <button class="btn-light">Descargar</button>
-                </div>
-
-                <div class="history-item">
-                    <div>
-                        <strong>Productos Bajo Stock - Febrero 2026</strong>
-                        <span>Generado: 05/02/2026</span>
-                    </div>
-                    <button class="btn-light">Descargar</button>
+                    <button class="btn-light" ng-click="descargar()">Descargar</button>
                 </div>
 
             </div>
