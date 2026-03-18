@@ -170,6 +170,7 @@
                                 <th>Cantidad</th>
                                 <th>Precio Unit.</th>
                                 <th>Total</th>
+                                <th></th>
                             </tr>
                         </thead>
 
@@ -182,20 +183,26 @@
                                 <td>${{i.precio | number}}</td>
                                 <td>${{i.total | number}}</td>
 
+                                <td>
+                                    <button class="cotiz-btn-delete" ng-click="eliminarItem($index)">
+                                        X
+                                    </button>
+                                </td>
+
                             </tr>
 
                             <tr>
-                                <td colspan="3" class="text-right">Subtotal:</td>
+                                <td colspan="4" class="text-right">Subtotal:</td>
                                 <td>${{subtotal | number}}</td>
                             </tr>
 
                             <tr>
-                                <td colspan="3" class="text-right">IVA (19%):</td>
+                                <td colspan="4" class="text-right">IVA (19%):</td>
                                 <td>${{iva | number}}</td>
                             </tr>
 
                             <tr class="fila-final">
-                                <td colspan="3" class="text-right">Total:</td>
+                                <td colspan="4" class="text-right">Total:</td>
                                 <td>${{total | number}}</td>
                             </tr>
 
