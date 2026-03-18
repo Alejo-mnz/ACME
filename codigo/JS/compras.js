@@ -1,3 +1,4 @@
+
 var app;
 
 try {
@@ -172,6 +173,16 @@ app.controller("comprasCtrl", function ($scope) {
         $scope.total = c.total;
 
         window.location.hash = "modalNuevaCompra";
+
+    };
+
+
+
+    $scope.eliminarItem = function (index) {
+
+    $scope.compra.items.splice(index, 1);
+
+    calcular();
 
     };
 
